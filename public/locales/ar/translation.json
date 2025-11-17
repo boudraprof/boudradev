@@ -1,0 +1,13 @@
+{ 
+          "description": {
+            "part1": "قم بتعديل ملف <1>src/App.js</1> ثم قم بالضغط على زر <1>Change Language</1>.<br/>يمكنك تغيير اللغة من خلال الضغط على زر <1>Change Language</1>.",
+            "part2": "تعلم React"
+          },
+          "counter_one": "Changed language just once قم بتعديل اللغة مرة واحدة فقط",
+          "counter_other": "  لقد قمت بتعديل اللغة {{count}} مرة بالفعل",
+          "footer": {
+            "date": "اليوم  {{date, DATE_HUGE}}"
+          }
+        
+      
+}
