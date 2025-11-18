@@ -2,11 +2,16 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TextType from "./ui/TextType";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const { t } = useTranslation();
+
+  const textType = t("hero.textType", { returnObjects: true });
 
   return (
     <section
@@ -68,7 +73,8 @@ export default function Hero() {
           >
             <TextType
               className="max-md:text-[20px] my-3"
-              text={["Hi there","My name is Abdulsamad Boudra", "and I'm a Software Developer.", "Welcome to my space"]}
+              // text={["Hi there","My name is Abdulsamad Boudra", "and I'm a Software Developer.", "Welcome to my space"]}
+              text={textType as string[] | string}
               typingSpeed={75}
               pauseDuration={2000}
               showCursor={true}
@@ -83,7 +89,8 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="text-xl md:text-2xl text-slate-300 mb-4"
           >
-            Building elegant solutions to complex problems
+            {/* Building elegant solutions to complex problems */}
+            {t("hero.title")}
           </motion.p>
 
           <motion.p
@@ -92,8 +99,9 @@ export default function Hero() {
             transition={{ delay: 0.7 }}
             className="text-lg text-slate-400 max-w-2xl mx-auto mb-12"
           >
-            Passionate about creating beautiful, performant, and user-friendly
-            applications with modern technologies and best practices.
+            {/* Passionate about creating beautiful, performant, and user-friendly
+            applications with modern technologies and best practices. */}
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -107,15 +115,17 @@ export default function Hero() {
               onClick={() => scrollToSection("projects")}
               className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-6 text-lg"
             >
-              View My Work
+              {/* View My Work */}
+              {t("hero.viewMyWorkTitle")}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("contact")}
-              className="border-blue-500 text-blue-400 hover:bg-blue-500/10 px-8 py-6 text-lg"
+              className="border-blue-500 hover:text-blue-400 hover:bg-blue-500/10 px-8 py-6 text-lg"
             >
-              Get In Touch
+              {/* Get In Touch */}
+              {t("hero.getInTouchTitle")}
             </Button>
           </motion.div>
 
@@ -142,7 +152,7 @@ export default function Hero() {
               <Linkedin className="w-6 h-6" />
             </a>
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:contact@boudradev.space"
               className="text-slate-400 hover:text-white transition-colors"
             >
               <Mail className="w-6 h-6" />

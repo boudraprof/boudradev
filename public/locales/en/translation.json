@@ -1,13 +1,19 @@
-{ 
-          "description": {
-            "part1": "Edit <1>src/App.js</1> and save to reload.",
-            "part2": "Learn React"
-          },
-          "counter_one": "Changed language just once",
-          "counter_other": "Changed language already {{count}} times",
-          "footer": {
-            "date": "Today is{{date, DATE_HUGE}}"
-          }
-        
-      
+{
+  "hero": {
+    "textType": [
+      "Hi there",
+      "My name is Abdulsamad Boudra",
+      "and I'm a Software Developer.",
+      "Welcome to my space"
+    ],
+    "title": "Building elegant solutions to complex problems",
+    "description": "Passionate about creating beautiful, performant, and user-friendly applications with modern technologies and best practices.",
+    "viewMyWorkTitle": "View My Work",
+    "getInTouchTitle": "Get in touch"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm a passionate software developer with a strong foundation in full-stack development. I love turning ideas into reality through clean, efficient code. With experience across multiple technologies and frameworks, I specialize in building modern web applications that are both beautiful and functional. I'm constantly learning and staying up-to-date with the latest industry trends. When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community."
+  }
 }
+
