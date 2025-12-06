@@ -1,0 +1,46 @@
+{
+  "Error": {
+    "description": "<p>للأسف، حدث خطأ غير متوقع.</p><p>يمكنك محاولة <retry>إعادة تحميل الصفحة</retry> التي كنت تزورها.</p>",
+    "title": "حدث خطأ ما!"
+  },
+  "IndexPage": {
+    "description": "هذا مثال بسيط يوضح كيفية استخدام مكتبة <code>next-intl</code> مع Next.js App Router. جرب تغيير اللغة في الزاوية العلوية اليمنى ولاحظ كيف يتغير المحتوى تلقائيًا.",
+    "title": "مثال next-intl"
+  },
+  "LocaleLayout": {
+    "title": "مثال next-intl"
+  },
+  "LocaleSwitcher": {
+    "label": "تغيير اللغة",
+    "locale": "{locale, select, de {Deutsch} en {English} ar {العربية} other {غير معروف}}"
+  },
+  "Manifest": {
+    "name": "مثال next-intl"
+  },
+  "Navigation": {
+    "home": "الرئيسية",
+    "pathnames": "المسارات"
+  },
+  "NotFoundPage": {
+    "description": "يرجى التحقق مرة أخرى من شريط عنوان المتصفح أو استخدام القائمة التنقل للوصول إلى صفحة معروفة.",
+    "title": "الصفحة غير موجودة"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "تعرف على المزيد عن next-intl من خلال الوثائق الرسمية.",
+        "href": "https://next-intl.dev",
+        "title": "الوثائق"
+      },
+      "source": {
+        "description": "تصفح الكود المصدري لهذا المثال على GitHub.",
+        "href": "https://github.com/amannn/next-intl/tree/main/examples/example-app-router",
+        "title": "الكود المصدري"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>المسارات (Pathnames) مُترجمة أيضًا حسب اللغة.</p><p>إذا كنت تستخدم اللغة الافتراضية (الإنجليزية)، سترى في شريط العنوان <code>/en/pathnames</code> لهذه الصفحة.</p><p>عندما تغيّر اللغة إلى الألمانية، يتغير المسار تلقائيًا إلى <code>/de/pfadnamen</code>.</p>",
+    "title": "المسارات"
+  }
+}
