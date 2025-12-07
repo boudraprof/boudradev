@@ -5,6 +5,15 @@ import TextType from "@/components/TextType";
 import { useMessages, useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
 // import { Link, Element} from 'react-scroll'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import Link from "next/link";
 import { satisfy } from "@/lib/fonts";
 
