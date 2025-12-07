@@ -12,7 +12,7 @@ declare const messages: {
     "title": "About Me",
     "descriptions": [
       "I'm a passionate software developer with a strong foundation in full-stack development. I love turning ideas into reality through clean, efficient code.",
-      "With experience across multiple technologies and frameworks, I specialize in building modern web applications that are both beautiful and functional. I'm constantly learning and staying up-to-date with the latest industry trends",
+      "With experience across multiple technologies and frameworks, I specialize in building modern web and mobile applications that are both beautiful and functional. I'm constantly learning and staying up-to-date with the latest industry trends",
       "When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community."
     ],
     "cards": [
