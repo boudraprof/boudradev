@@ -6,18 +6,17 @@ const geist = Geist({
 })
  
 
-import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
-  subsets: ['latin'],   // Required subset
-  weight: ['400', '500', '700'], // Optional weights
-  display: 'swap',      // Optional: good for performance
+  subsets: ['latin'],  
+  weight: ['400', '500', '700'], 
+  display: 'swap',     
 });
 
-const roboto = Satisfy({
-  subsets: ['latin'],   // Required subset
-  weight: ['400', '500', '700'], // Optional weights
-  display: 'swap',      // Optional: good for performance
+const satisfy = Satisfy({
+  subsets: ['latin'],  
+  weight: ['400'],
+  
 });
 
 
@@ -28,4 +27,3 @@ export {
     geist
 }
 
-//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
