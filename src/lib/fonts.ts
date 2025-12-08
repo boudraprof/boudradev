@@ -1,21 +1,29 @@
-import LocalFont from "next/font/local";
+import { Geist, Roboto, Satisfy } from 'next/font/google'
 
+
+const geist = Geist({
+  subsets: ['latin'],
+})
  
-const satisfy =  LocalFont({
-src: "../../public/fonts/Satisfy-Regular.ttf",
-variable: "--font-satisfy",
-display: "swap",
-})
 
-const roboto =  LocalFont({
-src: "../../public/fonts/Roboto-Black.ttf",
-variable: "--font-satisfy",
-display: "swap",
-})
+
+const roboto = Roboto({
+  subsets: ['latin'],  
+  weight: ['400', '500', '700'], 
+  display: 'swap',     
+});
+
+const satisfy = Satisfy({
+  subsets: ['latin'],  
+  weight: ['400'],
+  
+});
+
+
 
 export {
     satisfy,
-    roboto
+    roboto,
+    geist
 }
 
-//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

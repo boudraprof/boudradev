@@ -5,7 +5,7 @@ import {clsx} from 'clsx';
 // import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
 import Navigation from '@/components/Navigation';
-import {roboto} from '@/lib/fonts'
+import {roboto, satisfy} from '@/lib/fonts'
 import './styles.css';
 
 // const inter = Inter({subsets: ['latin']});
@@ -52,7 +52,7 @@ export default async function Layout({
       style={{direction: locale === 'ar' ? 'rtl' : 'ltr'}} //TODO: use clssName ienstead style Object 
       className={clsx(
         roboto.className, 
-        'flex h-full flex-col justify-center')}>
+        'flex h-full flex-col  justify-center')}>
         <NextIntlClientProvider>
           {/* <Navigation /> */}
           {children}

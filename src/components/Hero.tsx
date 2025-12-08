@@ -5,6 +5,15 @@ import TextType from "@/components/TextType";
 import { useMessages, useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
 // import { Link, Element} from 'react-scroll'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import Link from "next/link";
 import { satisfy } from "@/lib/fonts";
 
@@ -39,7 +48,7 @@ export default function Hero() {
         {[...Array(50)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute size-1.5 bg-blue-400 rounded-full"
+            className="absolute size-1.3 bg-blue-400 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
