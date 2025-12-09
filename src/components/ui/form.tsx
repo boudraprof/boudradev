@@ -1,21 +1,23 @@
 
-import { useState, type FormEvent, type FormEventHandler, useActionState } from "react";
+import { useState, type FormEvent, type FormEventHandler, useActionState, useEffect } from "react";
 import { motion } from "framer-motion";
 import z from "zod"
 import messagesp from '@/messages/en.d.json'
 import { ContactForm } from "@/lib/actions";
-import { useMessages } from "next-intl";
+import { useMessages, useLocale } from "next-intl";
 import { CheckCircle, Send } from "lucide-react";
 import { Input } from "./input";
 import { Textarea } from "./textarea";
 import { Button } from "./button";
 import type {State} from "@/lib/actions"
+import Turnstile from "@/components/Turnstile";
 
 
 
 
 const CreateForm = () => {
-  const messages = useMessages() as typeof messagesp[];
+  const messages = useMessages() as typeof messagesp;
+  const locale = useLocale();
   const formLabels = messages.contact.form;
   const initialState: State = { message: null, errors: {} }
   const [state, formAction] = useActionState(ContactForm, initialState);
@@ -33,7 +35,20 @@ const CreateForm = () => {
   });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const Contact = z.object({ name: z.string().min(12).max(50), email: z.email().max(30), message: z.string().min(10).max(2000) })
+
+  // Reset sent state when form action completes successfully
+  useEffect(() => {
+    if (state.success) {
+      setSent(true);
+      setFormData({ name: "", email: "", message: "" });
+      setTurnstileToken(null);
+      setTimeout(() => {
+        setSent(false);
+      }, 5000);
+    }
+  }, [state.success]);
 
   const result = Contact.safeParse({
     name: formData.name,
@@ -93,7 +108,7 @@ const CreateForm = () => {
         {formLabels.successMessage.message}
       </p>
     </motion.div>) : (
-    <form onSubmit={handleSubmit} action={formAction} className="space-y-7">
+    <form action={formAction} className="space-y-7">
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -101,6 +116,7 @@ const CreateForm = () => {
           </label>
           <Input
             type="text"
+            name="name"
             required
             value={formData.name}
             onChange={(e) =>
@@ -109,6 +125,9 @@ const CreateForm = () => {
             className=" bg-slate-900/50 border-slate-600 focus:border-blue-500 text-white"
             placeholder={formLabels.name.placeholder}
           />
+          {state.errors?.name && (
+            <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.name[0]}</div>
+          )}
           <div className="text-sm pt-1 text-red-500 pl-1">{formError.name}</div>
         </div>
         <div>
@@ -117,6 +136,7 @@ const CreateForm = () => {
           </label>
           <Input
             type="email"
+            name="email"
             required
             value={formData.email}
             onChange={(e) =>
@@ -125,6 +145,9 @@ const CreateForm = () => {
             className="bg-slate-900/50 border-slate-600 focus:border-blue-500 text-white"
             placeholder={formLabels.email.placeholder}
           />
+          {state.errors?.email && (
+            <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.email[0]}</div>
+          )}
           <div className="text-sm pt-1 text-red-500 pl-1">{formError.email}</div>
         </div>
       </div>
@@ -133,6 +156,7 @@ const CreateForm = () => {
           {formLabels.content.label}
         </label>
         <Textarea
+          name="message"
           required
           rows={6}
           value={formData.message}
@@ -141,13 +165,41 @@ const CreateForm = () => {
           }
           placeholder={formLabels.content.placeholder}
         />
+        {state.errors?.message && (
+          <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.message[0]}</div>
+        )}
         <div className="text-sm pt-1 text-red-500 pl-1">{formError.message}</div>
       </div>
+      
+      {/* Cloudflare Turnstile */}
+      <div className="flex justify-center">
+        <Turnstile
+          siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
+          onVerify={(token) => {
+            setTurnstileToken(token);
+          }}
+          onError={() => {
+            setTurnstileToken(null);
+          }}
+          theme="auto"
+          language={locale}
+        />
+      </div>
+      
+      {/* Hidden input for Turnstile token */}
+      {turnstileToken && (
+        <input type="hidden" name="cf-turnstile-response" value={turnstileToken} />
+      )}
+      
+      {state.message && !state.success && (
+        <div className="text-sm text-red-500 text-center">{state.message}</div>
+      )}
+      
       <Button
         type="submit"
         size="lg"
-        disabled={sending}
-        className="w-full bg-gradient-to-r  from-blue-600  to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-6"
+        disabled={sending || !turnstileToken}
+        className="w-full bg-gradient-to-r  from-blue-600  to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-6 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {sending ? (
           <>
