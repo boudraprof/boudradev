@@ -1,19 +1,10 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
+import { Github, Mail, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import TextType from "@/components/TextType";
 import { useMessages, useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
 // import { Link, Element} from 'react-scroll'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import Link from "next/link";
 import { satisfy } from "@/lib/fonts";
 
@@ -34,7 +25,7 @@ export default function Hero() {
     >
       <nav className="absolute h-15 inset-0 z-20">
         <div className="flex justify-around items-center">
-          <h1 className={`${satisfy.className} text-2xl`}>boudradev</h1>
+          <h1 className={`${satisfy.className} text-1.7`}>boudradev</h1>
           <LocaleSwitcher />
         </div>
       </nav>

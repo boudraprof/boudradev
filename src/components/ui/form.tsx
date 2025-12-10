@@ -22,27 +22,15 @@ const CreateForm = () => {
   const initialState: State = { message: null, errors: {} }
   const [state, formAction] = useActionState(ContactForm, initialState);
 
-  console.log(state)
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [formError, setFormError] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
-  const Contact = z.object({ name: z.string().min(12).max(50), email: z.email().max(30), message: z.string().min(10).max(2000) })
-
+  
   // Reset sent state when form action completes successfully
   useEffect(() => {
     if (state.success) {
       setSent(true);
-      setFormData({ name: "", email: "", message: "" });
       setTurnstileToken(null);
       // setTimeout(() => {
       //   setSent(false);
@@ -50,43 +38,7 @@ const CreateForm = () => {
     }
   }, [state.success]);
 
-  const result = Contact.safeParse({
-    name: formData.name,
-    email: formData.email,
-    message: formData.message
-  })
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setSending(true);
-    if (!result.success) {
-      const err = result.error.format()
-      console.log(err._errors)
-      //  console.log(result.error.message)
-      setFormError({
-        ...formError,
-        name: err.name?._errors[0] || "",
-        email: err.email?._errors[0] || "",
-        message: err.message?._errors[0] || ""
-      })
-    } else {
-      // console.log(result.data)
-      try {
-        // await base44.integrations.Core.SendEmail({
-        //   to: "your.email@example.com",
-        //   subject: `Portfolio Contact: ${formData.name}`,
-        //   body: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        // });
 
-        setSent(true);
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setSent(false), 5000);
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
-
-    };
-    setSending(false);
-  }
 
 
   return (
@@ -118,17 +70,13 @@ const CreateForm = () => {
             type="text"
             name="name"
             required
-            value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
             className=" bg-slate-900/50 border-slate-600 focus:border-blue-500 text-white"
             placeholder={formLabels.name.placeholder}
           />
           {state.errors?.name && (
             <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.name[0]}</div>
           )}
-          <div className="text-sm pt-1 text-red-500 pl-1">{formError.name}</div>
+          {/* <div className="text-sm pt-1 text-red-500 pl-1">{formError.name}</div> */}
         </div>
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -138,17 +86,13 @@ const CreateForm = () => {
             type="email"
             name="email"
             required
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
             className="bg-slate-900/50 border-slate-600 focus:border-blue-500 text-white"
             placeholder={formLabels.email.placeholder}
           />
           {state.errors?.email && (
             <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.email[0]}</div>
           )}
-          <div className="text-sm pt-1 text-red-500 pl-1">{formError.email}</div>
+          {/* <div className="text-sm pt-1 text-red-500 pl-1">{formError.email}</div> */}
         </div>
       </div>
       <div>
@@ -159,16 +103,11 @@ const CreateForm = () => {
           name="message"
           required
           rows={6}
-          value={formData.message}
-          onChange={(e) =>
-            setFormData({ ...formData, message: e.target.value })
-          }
           placeholder={formLabels.content.placeholder}
         />
         {state.errors?.message && (
           <div className="text-sm pt-1 text-red-500 pl-1">{state.errors.message[0]}</div>
         )}
-        <div className="text-sm pt-1 text-red-500 pl-1">{formError.message}</div>
       </div>
       
       {/* Cloudflare Turnstile */}

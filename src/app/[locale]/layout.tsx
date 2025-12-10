@@ -5,7 +5,7 @@ import {clsx} from 'clsx';
 // import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
 import Navigation from '@/components/Navigation';
-import {roboto, satisfy} from '@/lib/fonts'
+import {roboto, geist} from '@/lib/fonts'
 import './styles.css';
 
 // const inter = Inter({subsets: ['latin']});
