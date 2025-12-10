@@ -2,6 +2,7 @@ import {notFound} from 'next/navigation';
 import {Locale, hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {clsx} from 'clsx';
+import {Analytics} from '@vercel/analytics/react';
 // import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
 import Navigation from '@/components/Navigation';
@@ -56,6 +57,7 @@ export default async function Layout({
         <NextIntlClientProvider>
           {/* <Navigation /> */}
           {children}
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

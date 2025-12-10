@@ -1,5 +1,5 @@
 
-import { useState, type FormEvent, type FormEventHandler, useActionState, useEffect } from "react";
+import { useState, type FormEvent, type FormEventHandler, useActionState, useEffect, useRef, useTransition } from "react";
 import { motion } from "framer-motion";
 import z from "zod"
 import messagesp from '@/messages/en.d.json'
@@ -10,7 +10,7 @@ import { Input } from "./input";
 import { Textarea } from "./textarea";
 import { Button } from "./button";
 import type {State} from "@/lib/actions"
-import Turnstile from "@/components/Turnstile";
+import Turnstile, { TurnstileRef } from "@/components/Turnstile";
 
 
 
@@ -21,22 +21,35 @@ const CreateForm = () => {
   const formLabels = messages.contact.form;
   const initialState: State = { message: null, errors: {} }
   const [state, formAction] = useActionState(ContactForm, initialState);
+  const [isPending, startTransition] = useTransition();
 
-
-  const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileRef>(null);
   
   // Reset sent state when form action completes successfully
   useEffect(() => {
     if (state.success) {
       setSent(true);
       setTurnstileToken(null);
-      // setTimeout(() => {
-      //   setSent(false);
-      // }, 5000);
+      // Reset Turnstile widget
+      if (turnstileRef.current) {
+        turnstileRef.current.reset();
+      }
+      setTimeout(() => {
+        setSent(false);
+      }, 5000);
     }
   }, [state.success]);
+
+  // Handle form submission with transition
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    startTransition(() => {
+      formAction(formData);
+    });
+  };
 
 
 
@@ -60,7 +73,7 @@ const CreateForm = () => {
         {formLabels.successMessage.message}
       </p>
     </motion.div>) : (
-    <form action={formAction} className="space-y-7">
+    <form onSubmit={handleSubmit} className="space-y-7">
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
@@ -113,6 +126,7 @@ const CreateForm = () => {
       {/* Cloudflare Turnstile */}
       <div className="flex justify-center">
         <Turnstile
+          ref={turnstileRef}
           siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
           onVerify={(token) => {
             setTurnstileToken(token);
@@ -137,10 +151,10 @@ const CreateForm = () => {
       <Button
         type="submit"
         size="lg"
-        disabled={sending || !turnstileToken}
+        disabled={isPending || !turnstileToken}
         className="w-full bg-gradient-to-r  from-blue-600  to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-6 disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {sending ? (
+        {isPending ? (
           <>
             <div className="size-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
             {formLabels.submitButton.loading}

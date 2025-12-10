@@ -5,7 +5,6 @@ import { z } from 'zod';
 
 import dbConnect from '@/lib/mongoose';
 import Contact from '../models/Contact';
-import { revalidatePath } from 'next/cache';
 import { sendWelcomeEmail } from '@/lib/email';
 import { getLocale } from 'next-intl/server';
 
@@ -19,6 +18,7 @@ export type State = {
         message?: string[];
     };
     message?: string | null;
+    success?: boolean;
 }
 
 const ContactFormZod = z.object({ name: z.string().min(12).max(50), email: z.email().max(30), message: z.string().min(10).max(2000), date: z.date().optional() });
@@ -75,11 +75,6 @@ export async function ContactForm(pervState: State, formData: FormData) {
         email: formData.get('email'),
         message: formData.get("message")
     })
-    // const validateFields = CreateInvoice.safeParse({
-    //     customerId: formData?.get('customerId'),
-    //     amount: formData?.get('amount'),
-    //     status: formData?.get('status'),
-    // });
 
     if (!validateFields.success) return ({
         errors: validateFields.error.flatten().fieldErrors,
@@ -121,6 +116,6 @@ export async function ContactForm(pervState: State, formData: FormData) {
             message: 'Database Error: Failed to Create Message.',
         };
     }
-    // revalidatePath("/", "page"); w
+    // revalidatePath("/", "page"); 
     // redirect(pathName);
 }
