@@ -89,7 +89,7 @@ export default function Contact() {
    * TODO: add form validation
    * TODO: add form submission success and failure messages
    * TODO: remove footer from contact section
-   * TODO: 
+   * TODO: notfound 404 page
    */
   return (
     <section id="contact" className="py-20 md:py-32 px-6 relative">

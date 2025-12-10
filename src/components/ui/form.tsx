@@ -44,9 +44,9 @@ const CreateForm = () => {
       setSent(true);
       setFormData({ name: "", email: "", message: "" });
       setTurnstileToken(null);
-      setTimeout(() => {
-        setSent(false);
-      }, 5000);
+      // setTimeout(() => {
+      //   setSent(false);
+      // }, 5000);
     }
   }, [state.success]);
 
