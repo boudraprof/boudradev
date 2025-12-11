@@ -176,6 +176,11 @@ declare const messages: {
   },
   "Layout": {
     "title": "BoudraDev"
+  },
+  "notfound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "goHomeButton": "Go Back Home"
   }
 };
 export default messages;
