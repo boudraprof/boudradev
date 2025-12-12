@@ -1,11 +1,11 @@
-import { Geist, Roboto, Satisfy } from 'next/font/google'
+import { Geist, Roboto, Satisfy,  Noto_Kufi_Arabic } from 'next/font/google'
 
 
 const geist = Geist({
   subsets: ['latin'],
 })
  
-
+const kufi = Noto_Kufi_Arabic({subsets: ['latin', 'arabic'], weight: ['400']})
 
 const roboto = Roboto({
   subsets: ['latin'],  
@@ -24,6 +24,7 @@ const satisfy = Satisfy({
 export {
     satisfy,
     roboto,
-    geist
+    geist,
+    kufi
 }
 

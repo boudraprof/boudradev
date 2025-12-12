@@ -10,7 +10,7 @@ import { satisfy } from "@/lib/fonts";
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
-    console.log("triggred", id)
+    console.log("triggred", id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -36,10 +36,10 @@ export default function Hero() {
 
       {/* Floating particles */}
       <div className="absolute inset-0">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute size-1.3 bg-blue-400 rounded-full"
+            className="absolute w-1 h-1 bg-blue-400 rounded-full"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -107,7 +107,7 @@ export default function Hero() {
             transition={{ delay: 0.8 }}
             className="flex flex-wrap gap-4 justify-center mb-12"
           >
-  <Button
+            <Button
               size="lg"
               onClick={() => scrollToSection("projects")}
               className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-6 text-lg"

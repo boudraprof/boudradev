@@ -6,8 +6,9 @@ import {Analytics} from '@vercel/analytics/react';
 // import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
 import Navigation from '@/components/Navigation';
-import {roboto, geist} from '@/lib/fonts'
+import {roboto, geist, kufi} from '@/lib/fonts'
 import './styles.css';
+import { Noto_Kufi_Arabic } from 'next/font/google';
 
 // const inter = Inter({subsets: ['latin']});
 
@@ -184,12 +185,13 @@ export default async function Layout({
 
   // Enable static rendering
   setRequestLocale(locale);
+ const isArabic = locale === 'ar';
 
   return (
     <html lang={locale}>
       <body
-      style={{direction: locale === 'ar' ? 'rtl' : 'ltr'}} //TODO: use clssName ienstead style Object 
-      className={clsx(
+      style={{direction: isArabic ? 'rtl' : 'ltr'}} 
+      className={clsx(isArabic ? kufi.className :
         roboto.className, 
         'flex h-full flex-col  justify-center')}>
         <NextIntlClientProvider>
