@@ -43,14 +43,13 @@ export default  function App({params}:  LayoutProps<'/[locale]'>) {
   
   const {locale}  =   use(params) as {locale: "en" | "ar"} ;
 
-console.log(locale)
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll("section[id]");
       const scrollY = window.pageYOffset;
       sections.forEach((section) => {
-        const sectionHeight = section?.offsetHeight as number;
-        const sectionTop = section.offsetTop - 100;
+        const sectionHeight = (section as HTMLElement)?.offsetHeight;
+        const sectionTop = (section as HTMLElement).offsetTop - 100;
         const sectionId = section.getAttribute("id");
 
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
