@@ -28,62 +28,9 @@ export type State = {
 export default function Contact() {
   
   const  t  = useTranslations('contact');
-  const messages = useMessages() as typeof messagesp[];
+  const messages = useMessages();
   const footerTitle = messages.footer.title
 
-//   const initialState: State = {message: null, errors: {}}
-//   const [state, formAction] = useActionState(ContactFrom, initialState);
-
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     message: "",
-//   });
-//   const [formError, setFormError] = useState({
-//     name: "",
-//     email: "",
-//     message: "",
-//   });
-//   const [sending, setSending] = useState(false);
-//   const [sent, setSent] = useState(false);
-//   const Contact = z.object({name: z.string().min(12).max(50), email: z.email().max(30), message: z.string().min(10).max(2000)})
-  
-//   const result = Contact.safeParse({
-//    name: formData.name,
-//    email: formData.email,
-//    message: formData.message
-//   })
-//   const handleSubmit = async (e: FormEvent) => {
-//     e.preventDefault();
-//     setSending(true);
-//     if(!result.success) {
-//       const err = result.error.format()
-// console.log(err._errors)
-//       //  console.log(result.error.message)
-//        setFormError({...formError, 
-//         name: err.name?._errors[0] || "", 
-//         email: err.email?._errors[0] || "",
-//         message: err.message?._errors[0] || ""
-//       })
-//     } else {
-//       // console.log(result.data)
-//       try {
-//         // await base44.integrations.Core.SendEmail({
-//           //   to: "your.email@example.com",
-//       //   subject: `Portfolio Contact: ${formData.name}`,
-//       //   body: `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-//       // });
-      
-//       setSent(true);
-//       setFormData({ name: "", email: "", message: "" });
-//       setTimeout(() => setSent(false), 5000);
-//     } catch (error) {
-//       console.error("Error sending message:", error);
-//     }
-    
-//   };
-//   setSending(false);
-// }
   /**
    * TODO: add cloudflare  reCaptcha
    * TODO: add form validation

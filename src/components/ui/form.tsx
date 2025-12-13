@@ -19,7 +19,7 @@ const CreateForm = () => {
   const messages = useMessages() as typeof messagesp;
   const locale = useLocale();
   const formLabels = messages.contact.form;
-  const initialState: State = { message: null, errors: {} }
+  const initialState: State  = { message: null, errors: {} };
   const [state, formAction] = useActionState(ContactForm, initialState);
   const [isPending, startTransition] = useTransition();
 

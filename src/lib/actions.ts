@@ -24,7 +24,7 @@ export type State = {
 const ContactFormZod = z.object({ name: z.string().min(12).max(50), email: z.email().max(30), message: z.string().min(10).max(2000), date: z.date().optional() });
 
 
-export async function ContactForm(pervState: State, formData: FormData) {
+export async function ContactForm(pervState: State, formData: FormData): Promise<State> {
 
     // Verify reCAPTCHA token
     const recaptchaToken = formData.get('cf-turnstile-response');
@@ -108,8 +108,8 @@ export async function ContactForm(pervState: State, formData: FormData) {
             console.error('Error sending welcome email:', emailError);
             // Don't fail the form submission if email fails
         }
-
-        return { success: true, message: newMessage };
+     const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
+        return { success: true, message: result };
     } catch (error) {
         console.log('Database Error:', error);
         return {

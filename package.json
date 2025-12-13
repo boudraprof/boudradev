@@ -39,6 +39,7 @@
     "@types/accept-language-parser": "^1.5.8",
     "@types/lodash": "^4.17.21",
     "@types/node": "^20",
+    "@types/nodemailer": "^7.0.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-scroll": "^1.8.10",

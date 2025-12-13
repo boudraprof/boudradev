@@ -181,6 +181,9 @@ declare const messages: {
     "title": "Page Not Found",
     "description": "Sorry, the page you are looking for does not exist.",
     "goHomeButton": "Go Back Home"
+  },
+    "Manifest": {
+    "name": "next-intl example"
   }
 };
 export default messages;

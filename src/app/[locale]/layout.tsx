@@ -3,14 +3,12 @@ import {Locale, hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {clsx} from 'clsx';
 import {Analytics} from '@vercel/analytics/react';
-// import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
-import Navigation from '@/components/Navigation';
 import {roboto, geist, kufi} from '@/lib/fonts'
 import './styles.css';
-import { Noto_Kufi_Arabic } from 'next/font/google';
 
-// const inter = Inter({subsets: ['latin']});
+
+
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
@@ -195,7 +193,6 @@ export default async function Layout({
         roboto.className, 
         'flex h-full flex-col  justify-center')}>
         <NextIntlClientProvider>
-          {/* <Navigation /> */}
           {children}
           <Analytics />
         </NextIntlClientProvider>

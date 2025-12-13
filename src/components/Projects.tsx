@@ -27,17 +27,11 @@ type projectsNotFoundType = {
 export default function Projects() {
   const  t  = useTranslations();
   const messages = useMessages();
- const projects = messages.projects.cards //= t("projects.cards", {
-  //   returnObjects: true,
-  // }) as Data[];
+ const projects = messages.projects.cards;
 
-const projectsNotFound = projects.projectsNotFound 
+const projectsNotFound = messages.projects.projectsNotFound as projectsNotFoundType;
   const [isLoading] = useState(false);
-  // const { data: projects, isLoading } = useQuery({
-  //   queryKey: ['projects'],
-  //   // queryFn: () => base44.entities.Project.list('-order'),
-  //   initialData: [],
-  // });
+
 
   const featuredProjects = projects.filter((p: Data) => p.featured);
   const otherProjects = projects.filter((p: Data) => !p.featured);
@@ -68,7 +62,7 @@ const projectsNotFound = projects.projectsNotFound
           <div className="flex justify-center items-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
           </div>
-        ) : projects.length === 0 ? (
+        ) : featuredProjects.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

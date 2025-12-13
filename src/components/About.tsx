@@ -5,14 +5,14 @@ import { DynamicIcon, type dynamicIconImports } from "lucide-react/dynamic";
 type CardProps = {
   title: string;
   description: string;
-  icon: typeof dynamicIconImports;
+  icon: string;
 };
 
 export default function About() {
   const t = useTranslations('about');
     const messages = useMessages();
-    const description = messages.about.descriptions;
-    const cards = Object.values(messages.about.cards) as CardProps[];
+    const description = messages.about.descriptions as string[];
+    const cards = messages.about.cards as CardProps[];
  
   return (
     <section id="about" className="py-20 md:py-32 px-6 relative">

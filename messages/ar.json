@@ -178,5 +178,8 @@
     "title": "الصفحة غير موجودة",
     "description": "عذرًا، الصفحة التي تبحث عنها غير موجودة.",
     "goHomeButton": "العودة إلى الصفحة الرئيسية"
+  },
+    "Manifest": {
+    "name": "next-intl example"
   }
 }
