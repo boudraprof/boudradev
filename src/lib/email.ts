@@ -21,6 +21,12 @@ export interface WelcomeEmailOptions {
   locale?: 'en' | 'ar';
 }
 
+
+export interface SendEmailToAdmin {
+  email: string;
+  name: string;
+  message: string
+}
 export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmailOptions) {
   const fromEmail = process.env.FROM_EMAIL || "contact@boudradev.space";
   const fromName = process.env.FROM_NAME || "BoudraDev";
@@ -109,6 +115,23 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
   } catch (error) {
     console.error('Error sending welcome email:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  }
+}
+
+export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmin) {
+
+  try {
+     await transporter.sendMail({
+      from: `"${name}" <${email}>`,
+      to: process.env.FROM_EMAIL,
+      subject: "The Message Form Client",
+      text: message,
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error sending email to admin failed', error);
+    return { success: false};
   }
 }
 

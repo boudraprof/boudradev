@@ -4,7 +4,7 @@ import { z } from "zod";
 import { getLocale, getMessages } from "next-intl/server";
 
 import Contact from "../models/Contact";
-import { sendWelcomeEmail } from "@/lib/email";
+import { sendEmailToAdmin, sendWelcomeEmail } from "@/lib/email";
 import dbConnect from "@/lib/mongoose";
 import axios from "axios";
 
@@ -90,6 +90,7 @@ export async function ContactForm(
 
   let mailMessage;
   try {
+    await sendEmailToAdmin({ email, name, message });
     const locale = (await getLocale()) as "en" | "ar";
     mailMessage = await sendWelcomeEmail({
       to: email,
