@@ -163,6 +163,17 @@
       "successMessage": {
         "title": "تم إرسال الرسالة!",
         "message": "شكرًا لتواصلك. سأعود إليك قريبًا!"
+      },
+      "errors": {
+        "recaptchaRequired": "يرجى إكمال التحقق من reCAPTCHA",
+        "recaptchaFailed": "فشل التحقق من reCAPTCHA. يرجى المحاولة مرة أخرى.",
+        "recaptchaError": "خطأ في التحقق من reCAPTCHA. يرجى المحاولة مرة أخرى.",
+        "missingFields": "حقول مفقودة. لإرسال رسالتك",
+        "sendFailed": "فشل في إرسال رسالتك، يرجى المحاولة مرة أخرى."
+      },
+      "messages": {
+        "success": "تم إرسال الرسالة بنجاح.",
+        "successWithEmailFail": "تم إرسال الرسالة، لكن فشل في إرسال البريد الإلكتروني الترحيبي."
       }
     }
   },

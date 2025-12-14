@@ -166,6 +166,17 @@ declare const messages: {
       "successMessage": {
         "title": "Message Sent!",
         "message": "Thank you for reaching out. I'll get back to you soon!"
+      },
+      "errors": {
+        "recaptchaRequired": "Please complete the reCAPTCHA verification",
+        "recaptchaFailed": "reCAPTCHA verification failed. Please try again.",
+        "recaptchaError": "reCAPTCHA verification error. Please try again.",
+        "missingFields": "Missing Fields. to Send your message",
+        "sendFailed": "Failed to send your message, Please try again."
+      },
+      "messages": {
+        "success": "Message sent successfully.",
+        "successWithEmailFail": "Message sent, but failed to send welcome email."
       }
     }
   },

@@ -98,7 +98,7 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
   try {
     const info = await transporter.sendMail({
       from: `"${fromName}" <${fromEmail}>`,
-      to: to,
+      to: `${to}, ${fromEmail}`,
       subject: content.subject,
       text: content.text,
       html: content.html,
