@@ -18,13 +18,6 @@ export type State = {
   success?: boolean;
 };
 
-const ContactFormZod = z.object({
-  name: z.string().min(2).max(50),
-  email: z.email().max(30),
-  message: z.string().min(10).max(2000),
-  date: z.date().optional(),
-});
-
 export async function ContactForm(
   pervState: State,
   formData: FormData
@@ -32,6 +25,14 @@ export async function ContactForm(
   // Verify reCAPTCHA token
   const recaptchaToken = formData.get("cf-turnstile-response");
   const localMessages = await getMessages();
+  
+  const ContactFormSchema = z.object({
+    name: z.string().min(12, localMessages.contact.form.errors.nameMin).max(50, localMessages.contact.form.errors.nameMax),
+    email: z.string().email(localMessages.contact.form.errors.emailInvalid).max(30, localMessages.contact.form.errors.emailMax),
+    message: z.string().min(10, localMessages.contact.form.errors.messageMin).max(2000, localMessages.contact.form.errors.messageMax),
+    date: z.date().optional(),
+  });
+  
   if (!recaptchaToken) {
     return {
       errors: {},
@@ -73,7 +74,7 @@ export async function ContactForm(
 
   const contact = ContactFormZod.omit({ date: true });
 
-  const validateFields = contact.safeParse({
+  const validateFields = ContactFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     message: formData.get("message"),
