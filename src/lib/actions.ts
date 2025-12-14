@@ -72,7 +72,7 @@ export async function ContactForm(
     };
   }
 
-  const contact = ContactFormZod.omit({ date: true });
+     ContactFormSchema.omit({ date: true });
 
   const validateFields = ContactFormSchema.safeParse({
     name: formData.get("name"),

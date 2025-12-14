@@ -104,7 +104,7 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
   try {
     const info = await transporter.sendMail({
       from: `"${fromName}" <${fromEmail}>`,
-      to: `${to}, ${fromEmail}`,
+      to: to,
       subject: content.subject,
       text: content.text,
       html: content.html,
@@ -122,9 +122,9 @@ export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmi
 const adminEmail = process.env.FROM_EMAIL;
   try {
      await transporter.sendMail({
-      from: `"boudradev" <${adminEmail}>`,
+      from: `boudradev <${adminEmail}>`,
       to: process.env.FROM_EMAIL,
-      subject: `The Message Form Client Name:${name}, Email: ${email}`,
+      subject: `The Message Form Client Name: ${name}, Email: ${email}`,
       text: message,
     });
 
