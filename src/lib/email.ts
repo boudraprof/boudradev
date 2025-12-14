@@ -119,12 +119,12 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
 }
 
 export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmin) {
-
+const adminEmail = process.env.FROM_EMAIL;
   try {
      await transporter.sendMail({
-      from: `"${name}" <${email}>`,
+      from: `"boudradev" <${adminEmail}>`,
       to: process.env.FROM_EMAIL,
-      subject: "The Message Form Client",
+      subject: `The Message Form Client Name:${name}, Email: ${email}`,
       text: message,
     });
 

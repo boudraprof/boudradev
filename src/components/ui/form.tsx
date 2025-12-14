@@ -115,6 +115,7 @@ const CreateForm = () => {
           name="message"
           required
           rows={6}
+          maxLength={2000}
           placeholder={formLabels.content.placeholder}
         />
         {state.errors?.message && (
