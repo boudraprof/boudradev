@@ -27,7 +27,7 @@ export async function ContactForm(
   const localMessages = await getMessages();
   
   const ContactFormSchema = z.object({
-    name: z.string().min(1, localMessages.contact.form.errors.nameMin).max(50, localMessages.contact.form.errors.nameMax),
+    name: z.string().trim().min(1, localMessages.contact.form.errors.nameMin).max(50, localMessages.contact.form.errors.nameMax),
     email: z.string().email(localMessages.contact.form.errors.emailInvalid).max(30, localMessages.contact.form.errors.emailMax),
     message: z.string().min(10, localMessages.contact.form.errors.messageMin).max(2000, localMessages.contact.form.errors.messageMax),
     date: z.date().optional(),
