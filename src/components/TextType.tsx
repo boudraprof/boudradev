@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, createElement, useMemo, useCallback, ClassAttributes } from 'react';
+import { useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 
 

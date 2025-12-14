@@ -1,13 +1,13 @@
 "use server"
 
 import { z } from 'zod';
-
-
-import dbConnect from '@/lib/mongoose';
-import Contact from '../models/Contact';
-import { sendWelcomeEmail } from '@/lib/email';
 import { getLocale } from 'next-intl/server';
 
+
+import Contact from '../models/Contact';
+import { sendWelcomeEmail } from '@/lib/email';
+import dbConnect from '@/lib/mongoose';
+import axios from 'axios';
 
 
 
@@ -36,37 +36,34 @@ export async function ContactForm(pervState: State, formData: FormData): Promise
     }
 
     // Verify token with Cloudflare Turnstile
-    try {
-        const secretKey = process.env.CLOUDFLARE_RECAPTCHA_SECRET_KEY;
-        if (secretKey) {
-            const verifyResponse = await fetch(
-                'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        secret: secretKey,
-                        response: recaptchaToken.toString(),
-                    }),
-                }
-            );
-            const verifyData = await verifyResponse.json();
-            if (!verifyData.success) {
-                return {
-                    errors: {},
-                    message: 'reCAPTCHA verification failed. Please try again.'
-                };
-            }
-        }
-    } catch (error) {
-        console.error('reCAPTCHA verification error:', error);
-        return {
-            errors: {},
-            message: 'reCAPTCHA verification error. Please try again.'
-        };
-    }
+    // console.log(typeof recaptchaToken)
+    // const secretKey = process.env.CLOUDFLARE_RECAPTCHA_SECRET_KEY;
+    // try {
+    //     if (secretKey) {
+    //           const response = await axios.post(
+    //       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    //       null,
+    //       {
+    //         params: {
+    //           secret: secretKey,
+    //           response: recaptchaToken.toString(),
+    //         },
+    //       },
+    //     );
+    //         if (!response.data.success) {
+    //             return {
+    //                 errors: {},
+    //                 message: 'reCAPTCHA verification failed. Please try again.'
+    //             };
+    //         }
+    //     }
+    // } catch (error) {
+    //     console.error('reCAPTCHA verification error:', error);
+    //     return {
+    //         errors: {},
+    //         message: 'reCAPTCHA verification error. Please try again.'
+    //     };
+    // }
 
     const contact = ContactFormZod.omit({ date: true });
 
@@ -86,15 +83,15 @@ export async function ContactForm(pervState: State, formData: FormData): Promise
 
     try {
 
-        await dbConnect();
-        const newMessage = await Contact.create({
-            name,
-            email,
-            message,
-            date
-        });
+        // await dbConnect();
+        // const newMessage = await Contact.create({
+        //     name,
+        //     email,
+        //     message,
+        //     date
+        // });
 
-        console.log('message created:', newMessage);
+        // console.log('message created:', newMessage);
         
         // Send welcome email to the user
         try {
@@ -108,12 +105,12 @@ export async function ContactForm(pervState: State, formData: FormData): Promise
             console.error('Error sending welcome email:', emailError);
             // Don't fail the form submission if email fails
         }
-     const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
-        return { success: true, message: result };
+    //  const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
+        return { success: true, message: "ok its working" };
     } catch (error) {
         console.log('Database Error:', error);
         return {
-            message: 'Database Error: Failed to Create Message.',
+            message: 'Failed to send your message, Please try again.',
         };
     }
     // revalidatePath("/", "page"); 

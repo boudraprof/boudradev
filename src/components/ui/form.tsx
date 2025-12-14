@@ -1,5 +1,5 @@
 
-import { useState, type FormEvent, type FormEventHandler, useActionState, useEffect, useRef, useTransition } from "react";
+import { useState, useActionState, useEffect, useRef, useTransition } from "react";
 import { motion } from "framer-motion";
 import z from "zod"
 import messagesp from '@/messages/en.d.json'
@@ -50,7 +50,6 @@ const CreateForm = () => {
       formAction(formData);
     });
   };
-
 
 
 
@@ -124,11 +123,12 @@ const CreateForm = () => {
       </div>
       
       {/* Cloudflare Turnstile */}
-      <div className="flex justify-center">
+      <div className="flex justify-center h-16">
         <Turnstile
           ref={turnstileRef}
           siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
           onVerify={(token) => {
+            console.log(token)
             setTurnstileToken(token);
           }}
           onError={() => {

@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import TextType from "@/components/TextType";
 import { useMessages, useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
-// import { Link, Element} from 'react-scroll'
-import Link from "next/link";
 import { satisfy } from "@/lib/fonts";
 
 export default function Hero() {

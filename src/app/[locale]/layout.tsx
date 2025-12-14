@@ -37,15 +37,7 @@ export async function generateMetadata(
     namespace: 'Layout'
   });
 
-  const hero = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'hero'
-  });
 
-  const about = await getTranslations({
-    locale: locale as Locale,
-    namespace: 'about'
-  });
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boudradev.space';
   const siteName = 'BoudraDev';

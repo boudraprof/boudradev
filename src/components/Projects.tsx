@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-// import { base44 } from "@/api/base44Client";
-// import { useQuery } from "@tanstack/react-query";
-import { DynamicIcon } from "lucide-react/dynamic";
 import { Button } from "@/components/ui/button";
-// import { toast, ToastContainer } from "react-toastify";
 import { useTranslations, useMessages } from "next-intl";
 import { ExternalLink, Github, Loader2 } from "lucide-react";
 
