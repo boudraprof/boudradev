@@ -19,7 +19,7 @@ export type State = {
 };
 
 const ContactFormZod = z.object({
-  name: z.string().min(12).max(50),
+  name: z.string().min(2).max(50),
   email: z.email().max(30),
   message: z.string().min(10).max(2000),
   date: z.date().optional(),
