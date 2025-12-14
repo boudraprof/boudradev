@@ -27,7 +27,7 @@ export async function ContactForm(
   const localMessages = await getMessages();
   
   const ContactFormSchema = z.object({
-    name: z.string().min(12, localMessages.contact.form.errors.nameMin).max(50, localMessages.contact.form.errors.nameMax),
+    name: z.string().min(1, localMessages.contact.form.errors.nameMin).max(50, localMessages.contact.form.errors.nameMax),
     email: z.string().email(localMessages.contact.form.errors.emailInvalid).max(30, localMessages.contact.form.errors.emailMax),
     message: z.string().min(10, localMessages.contact.form.errors.messageMin).max(2000, localMessages.contact.form.errors.messageMax),
     date: z.date().optional(),
@@ -40,8 +40,21 @@ export async function ContactForm(
     };
   }
 
+     const contact = ContactFormSchema.omit({ date: true });
+
+  const validateFields = contact.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    message: formData.get("message"),
+  });
+
+  if (!validateFields.success)
+    return {
+      errors: validateFields.error.flatten().fieldErrors,
+      message: localMessages.contact.form.errors.missingFields,
+    };
+
   // Verify token with Cloudflare Turnstile
-  console.log(typeof recaptchaToken);
   const secretKey = process.env.CLOUDFLARE_RECAPTCHA_SECRET_KEY;
   try {
     if (secretKey) {
@@ -71,20 +84,6 @@ export async function ContactForm(
       message: localMessages.contact.form.errors.recaptchaError,
     };
   }
-
-     ContactFormSchema.omit({ date: true });
-
-  const validateFields = ContactFormSchema.safeParse({
-    name: formData.get("name"),
-    email: formData.get("email"),
-    message: formData.get("message"),
-  });
-
-  if (!validateFields.success)
-    return {
-      errors: validateFields.error.flatten().fieldErrors,
-      message: localMessages.contact.form.errors.missingFields,
-    };
 
   const { name, email, message } = validateFields.data;
   const date = new Date().toISOString().split("T")[0];
