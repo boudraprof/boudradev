@@ -113,7 +113,7 @@ export async function ContactForm(
       message: localMessages.contact.form.messages.successWithEmailFail,
     };
   }
-  //  const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
+  
   return {
     success: true,
     message: mailMessage?.success
