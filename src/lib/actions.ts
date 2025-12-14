@@ -40,33 +40,35 @@ export async function ContactForm(
   }
 
   // Verify token with Cloudflare Turnstile
-  console.log(typeof recaptchaToken)
+  console.log(typeof recaptchaToken);
   const secretKey = process.env.CLOUDFLARE_RECAPTCHA_SECRET_KEY;
   try {
-      if (secretKey) {
-            const response = await axios.post(
+    if (secretKey) {
+      const response = await axios.post(
         "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        null,
+        new URLSearchParams({
+          secret: secretKey,
+          response: recaptchaToken.toString(),
+        }),
         {
-          params: {
-            secret: secretKey,
-            response: recaptchaToken.toString(),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-        },
+        }
       );
-          if (!response.data.success) {
-              return {
-                  errors: {},
-                  message: localMessages.contact.form.errors.recaptchaFailed
-              };
-          }
-      }
-  } catch (error) {
-      console.error('reCAPTCHA verification error:', error);
-      return {
+      if (!response.data.success) {
+        return {
           errors: {},
-          message: localMessages.contact.form.errors.recaptchaError
-      };
+          message: localMessages.contact.form.errors.recaptchaFailed,
+        };
+      }
+    }
+  } catch (error) {
+    console.error("reCAPTCHA verification error:", error);
+    return {
+      errors: {},
+      message: localMessages.contact.form.errors.recaptchaError,
+    };
   }
 
   const contact = ContactFormZod.omit({ date: true });
@@ -86,43 +88,35 @@ export async function ContactForm(
   const { name, email, message } = validateFields.data;
   const date = new Date().toISOString().split("T")[0];
 
+  let mailMessage;
   try {
-    // await dbConnect();
-    // const newMessage = await Contact.create({
-    //     name,
-    //     email,
-    //     message,
-    //     date
-    // });
+    const locale = (await getLocale()) as "en" | "ar";
+    mailMessage = await sendWelcomeEmail({
+      to: email,
+      name: name,
+      locale: locale,
+    });
 
-    // console.log('message created:', newMessage);
-
-    // Send welcome email to the user
-    let message;
-    try {
-      const locale = (await getLocale()) as "en" | "ar";
-      message = await sendWelcomeEmail({
-        to: email,
-        name: name,
-        locale: locale,
-      });
-    } catch (emailError) {
-      console.error("Error sending welcome email:", emailError);
-      // Don't fail the form submission if email fails
-    }
-    //  const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
+    await dbConnect();
+    await Contact.create({
+      name,
+      email,
+      message,
+      date,
+    });
+  } catch (emailError) {
+    console.error("Error sending welcome email:", emailError);
+    // Don't fail the form submission if email fails
     return {
       success: true,
-      message: message?.success
-        ? localMessages.contact.form.messages.success
-        : localMessages.contact.form.messages.successWithEmailFail,
-    };
-  } catch (error) {
-    console.log("Database Error:", error);
-    return {
-      message: localMessages.contact.form.errors.sendFailed,
+      message: localMessages.contact.form.messages.successWithEmailFail,
     };
   }
-  // revalidatePath("/", "page");
-  // redirect(pathName);
+  //  const result = newMessage.email? "Message sent successfully to " + newMessage.email : "Message sent successfully.";
+  return {
+    success: true,
+    message: mailMessage?.success
+      ? localMessages.contact.form.messages.success
+      : localMessages.contact.form.messages.successWithEmailFail,
+  };
 }
