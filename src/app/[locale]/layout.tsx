@@ -162,7 +162,42 @@ export async function generateMetadata(
     other: {
       'theme-color': '#101E33',
       'color-scheme': 'dark',
-    },
+      'application/ld+json': JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Abdulsamad Boudra',
+        alternateName: 'عبدالصمد بودرة',
+        jobTitle: isArabic ? 'مطوّر برمجيات' : 'Software Developer',
+        description: description,
+        url: `${baseUrl}${currentPath}`,
+        sameAs: [
+          'https://github.com/boudradev',
+          'https://linkedin.com/in/abdulsamad-boudra',
+          'https://twitter.com/boudradev'
+        ],
+        knowsAbout: isArabic ? [
+          'تطوير الويب',
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Node.js',
+          'MongoDB',
+          'PostgreSQL'
+        ] : [
+          'Web Development',
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Node.js',
+          'MongoDB',
+          'PostgreSQL'
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: 'MA'
+        }
+      })
+    }
   };
 }
 
