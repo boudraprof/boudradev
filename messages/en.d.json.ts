@@ -173,7 +173,7 @@ declare const messages: {
         "recaptchaError": "reCAPTCHA verification error. Please try again.",
         "missingFields": "Missing Fields. to Send your message",
         "sendFailed": "Failed to send your message, Please try again.",
-        "nameMin": "Name must be at least 12 characters",
+        "nameMin": "Name must be at least 1 character",
         "nameMax": "Name must be at most 50 characters",
         "emailInvalid": "Invalid email address",
         "emailMax": "Email must be at most 30 characters",
