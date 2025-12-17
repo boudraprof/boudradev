@@ -8,7 +8,6 @@ import Image from "next/image";
 
 export default function Hero() {
   const scrollToSection = (id: string) => {
-    console.log("triggred", id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 

@@ -129,7 +129,6 @@ const CreateForm = () => {
           ref={turnstileRef}
           siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
           onVerify={(token) => {
-            console.log(token)
             setTurnstileToken(token);
           }}
           onError={() => {
