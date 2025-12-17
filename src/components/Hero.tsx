@@ -22,7 +22,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <nav className="absolute  h-15 inset-0 z-20">
-        <div className="flex justify-around items-center mx-[30%]  max-sm:mx-[15%] mt-3 rounded-full bg-gradient-to-br from-blue-600 via-white to-blue-500 opacity-60">
+        <div className="flex justify-around items-center mx-[30%] max-sm:mx-[15%] mt-3 rounded-full bg-gradient-to-br from-blue-600 via-white to-blue-500 opacity-60">
           {/* <h1 className={`${satisfy.className} text-1.7`}>boudradev</h1> */}
           <Image width={100} height={100} src={'/logo.png'} alt="logo"/>
           <LocaleSwitcher />
