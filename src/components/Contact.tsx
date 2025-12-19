@@ -6,6 +6,7 @@ import messagesp from '@/messages/en.d.json'
 // import { base44 } from "@/api/base44Client";
 // import {z, ZodError} from "zod"
 import CreateForm from "@/components/ui/form";
+import Footer from "./Footer";
 
 type ContactFormLabels = {
   name: { label: string; placeholder: string };
@@ -28,16 +29,7 @@ export type State = {
 export default function Contact() {
   
   const  t  = useTranslations('contact');
-  const messages = useMessages();
-  const footerTitle = messages.footer.title
 
-  /**
-   * TODO: add cloudflare  reCaptcha
-   * TODO: add form validation
-   * TODO: add form submission success and failure messages
-   * TODO: remove footer from contact section
-   * TODO: notfound 404 page
-   */
   return (
     <section id="contact" className="py-20 md:py-32 px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
@@ -86,18 +78,7 @@ export default function Contact() {
             contact@boudradev.space
           </a>
         </motion.div>
-        {/* this footer section should be removed from here */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-16 pt-8 border-t border-slate-800"
-        >
-          <p className="text-slate-500">
-            © {new Date().getFullYear()} {footerTitle}
-          </p>
-        </motion.div>
+        <Footer />
       </div>
     </section>
   );

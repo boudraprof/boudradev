@@ -4,7 +4,7 @@ import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {clsx} from 'clsx';
 import {Analytics} from '@vercel/analytics/react';
 import {routing} from '@/i18n/routing';
-import {roboto, geist, kufi} from '@/lib/fonts'
+import {roboto, kufi} from '@/lib/fonts'
 import './styles.css';
 
 
@@ -162,42 +162,7 @@ export async function generateMetadata(
     other: {
       'theme-color': '#101E33',
       'color-scheme': 'dark',
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: 'Abdulsamad Boudra',
-        alternateName: 'عبدالصمد بودرة',
-        jobTitle: isArabic ? 'مطوّر برمجيات' : 'Software Developer',
-        description: description,
-        url: `${baseUrl}${currentPath}`,
-        sameAs: [
-          'https://github.com/boudradev',
-          'https://linkedin.com/in/abdulsamad-boudra',
-          'https://twitter.com/boudradev'
-        ],
-        knowsAbout: isArabic ? [
-          'تطوير الويب',
-          'React',
-          'Next.js',
-          'TypeScript',
-          'Node.js',
-          'MongoDB',
-          'PostgreSQL'
-        ] : [
-          'Web Development',
-          'React',
-          'Next.js',
-          'TypeScript',
-          'Node.js',
-          'MongoDB',
-          'PostgreSQL'
-        ],
-        address: {
-          '@type': 'PostalAddress',
-          addressCountry: 'MA'
-        }
-      })
-    }
+    },
   };
 }
 
@@ -217,8 +182,66 @@ export default async function Layout({
   setRequestLocale(locale);
  const isArabic = locale === 'ar';
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boudradev.space';
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Abdulsamad Boudra',
+    alternateName: 'عبدالصمد بودرة',
+    jobTitle: isArabic ? 'مطوّر برمجيات' : 'Software Developer',
+    description: isArabic
+      ? 'عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام React، Next.js، TypeScript والمزيد.'
+      : 'Abdulsamad Boudra - Full Stack Software Developer specializing in building modern, high-performance web applications with React, Next.js, TypeScript, and more.',
+    url: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}`,
+    sameAs: [
+      'https://github.com/boudraprof',
+      'https://github.com/boudradev',
+    ],
+    knowsAbout: isArabic ? [
+      'تطوير الويب',
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Node.js',
+      'MongoDB',
+      'PostgreSQL',
+      'JavaScript',
+      'Full Stack Development'
+    ] : [
+      'Web Development',
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Node.js',
+      'MongoDB',
+      'PostgreSQL',
+      'JavaScript',
+      'Full Stack Development'
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'MA',
+      addressLocality: 'Morocco'
+    },
+    alumniOf: {
+      '@type': 'Organization',
+      name: 'Software Development'
+    }
+  };
+
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={isArabic ? 'rtl' : 'ltr'}>
+      <head>
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+        {/* Hreflang tags for proper language targeting */}
+        <link rel="alternate" hrefLang="en" href={`${baseUrl}`} />
+        <link rel="alternate" hrefLang="ar" href={`${baseUrl}/ar`} />
+        <link rel="alternate" hrefLang="x-default" href={`${baseUrl}`} />
+      </head>
       <body
       style={{direction: isArabic ? 'rtl' : 'ltr'}} 
       className={clsx(isArabic ? kufi.className :

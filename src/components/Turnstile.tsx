@@ -134,7 +134,7 @@ const Turnstile = forwardRef<TurnstileRef, TurnstileProps>(({
     };
   }, [siteKey, onVerify, onError, theme, language]);
 
-  return <div ref={containerRef} className="" />;
+  return <div ref={containerRef}  />;
 });
 
 Turnstile.displayName = 'Turnstile';
