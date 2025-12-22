@@ -6,7 +6,9 @@ if (!MONGODB_URI) {
     throw new Error("Please define the MONGODB_URI environment variable in .env.local");
 }
 
+/* eslint @typescript-eslint/no-explicit-any: "off" */
 let cached: { conn: Mongoose | null; promise: Promise<Mongoose> | null } =
+
     (global as any).mongoose;
 
 if (!cached) {

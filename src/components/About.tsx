@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 import {useTranslations, useMessages} from 'next-intl';
-import { DynamicIcon, type dynamicIconImports } from "lucide-react/dynamic";
+import { DynamicIcon, dynamicIconImports } from "lucide-react/dynamic";
+import Image from "next/image";
 
 type CardProps = {
   title: string;
   description: string;
   icon: string;
 };
+
+type IconName = keyof typeof dynamicIconImports
 
 export default function About() {
   const t = useTranslations('about');
@@ -42,7 +45,7 @@ export default function About() {
           >
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl blur-3xl" />
-              <img
+              <Image
                 src="../disktop.jpg"
                 alt="Developer workspace"
                 className="relative rounded-2xl shadow-2xl w-full h-96 object-cover"
@@ -75,7 +78,7 @@ export default function About() {
             >
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
                 <DynamicIcon
-                  name={item.icon as any}
+                  name={item.icon as IconName}
                   className="size-6 text-white"
                 />
               </div>

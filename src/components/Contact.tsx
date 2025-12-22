@@ -1,21 +1,9 @@
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import { useMessages, useTranslations } from "next-intl";
-import messagesp from '@/messages/en.d.json'
-// import {ContactFrom} from '@/lib/actions'
-// import { base44 } from "@/api/base44Client";
-// import {z, ZodError} from "zod"
+import { useTranslations } from "next-intl";
 import CreateForm from "@/components/ui/form";
 import Footer from "./Footer";
 
-type ContactFormLabels = {
-  name: { label: string; placeholder: string };
-  email: { label: string; placeholder: string };
-  message: { label: string; placeholder: string };
-  submitButton: { title: string; loading: string };
-  content: { label: string; placeholder: string };
-  successMessage: { title: string; message: string };
-};
 
 export type State = {
     errors?: {

@@ -5,15 +5,6 @@ import messagesp from "@/messages/en.d.json";
 
 
 
-type ExperienceCardProps = {
-  type: string;
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-  highlights?: string[];
-};
-
 export default  function Experience({locale}: {locale: "ar" |"en"}) {
 
   const t = useTranslations();

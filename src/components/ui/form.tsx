@@ -1,7 +1,6 @@
 
 import { useState, useActionState, useEffect, useRef, useTransition } from "react";
 import { motion } from "framer-motion";
-import z from "zod"
 import messagesp from '@/messages/en.d.json'
 import { ContactForm } from "@/lib/actions";
 import { useMessages, useLocale } from "next-intl";

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useTranslations, useMessages } from "next-intl";
 import { ExternalLink, Github, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 type Data = {
   id: string;
@@ -86,7 +87,7 @@ const projectsNotFound = messages.projects.projectsNotFound as projectsNotFoundT
                   >
                     {project.image_url && (
                       <div className="relative h-64 overflow-hidden">
-                        <img
+                        <Image
                           src={project.image_url}
                           alt={project.title}
                           className="size-full object-cover group-hover:scale-110 transition-transform duration-500"
