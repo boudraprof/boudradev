@@ -85,7 +85,7 @@
     "cards": [
       {
         "id": "2",
-        "image_url": "./cart.jpg",
+        "image_url": "/cart.jpg",
         "title": "منصة تجارة إلكترونية",
         "description": "منصّة تجارة إلكترونية متكاملة مع نظام دفع، إدارة مخزون، ولوحة تحكم إدارية. مبنية باستخدام React وNode.js وPostgreSQL.",
         "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
@@ -95,7 +95,7 @@
       },
       {
         "id": "1",
-        "image_url": "./task-management.jpg",
+        "image_url": "/task-management.jpg",
         "title": "تطبيق لإدارة المهام",
         "description": "تطبيق تعاوني لإدارة المهام يقدّم تحديثًا فوريًا، ومساحات عمل جماعية، وتتبّعًا للمواعيد النهائية. كما يتميز بواجهة سهلة تعتمد على السحب والإسقاط، إضافة إلى نظام تنبيهات.",
         "technologies": ["React", "Firebase", "Tailwind CSS", "Redux"],
