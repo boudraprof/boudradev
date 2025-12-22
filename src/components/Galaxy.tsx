@@ -229,7 +229,7 @@ export default function Galaxy({
     } else {
       gl.clearColor(0, 0, 0, 1);
     }
-    /* eslint prefer-const: off  -- eslint see that the program veriable should be a const, but it's not */
+    /* eslint prefer-const: off  */
     let program: Program;
 
     function resize() {

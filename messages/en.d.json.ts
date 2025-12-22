@@ -88,7 +88,7 @@ declare const messages: {
     "cards": [
       {
         "id": "2",
-        "image_url": "./cart.jpg",
+        "image_url": "/cart.jpg",
         "title": "E-Commerce Platform",
         "description": "A full-featured e-commerce platform with payment integration, inventory management, and admin dashboard. Built with React, Node.js, and PostgreSQL",
         "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
@@ -98,7 +98,7 @@ declare const messages: {
       },
       {
         "id": "1",
-        "image_url": "./task-management.jpg",
+        "image_url": "/task-management.jpg",
         "title": "Task Management App",
         "description": "Collaborative task management application with real-time updates, team workspaces, and deadline tracking. Features drag-and-drop interface and notifications. ",
         "technologies": ["React", "Firebase", "Tailwind CSS", "Redux"],

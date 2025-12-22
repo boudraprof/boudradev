@@ -88,6 +88,8 @@ const projectsNotFound = messages.projects.projectsNotFound as projectsNotFoundT
                     {project.image_url && (
                       <div className="relative h-64 overflow-hidden">
                         <Image
+                        width={500}
+                        height={500}
                           src={project.image_url}
                           alt={project.title}
                           className="size-full object-cover group-hover:scale-110 transition-transform duration-500"

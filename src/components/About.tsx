@@ -46,7 +46,9 @@ export default function About() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl blur-3xl" />
               <Image
-                src="../disktop.jpg"
+                src="/disktop.jpg"
+                width={500}
+                height={500}
                 alt="Developer workspace"
                 className="relative rounded-2xl shadow-2xl w-full h-96 object-cover"
               />
