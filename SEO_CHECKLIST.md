@@ -164,3 +164,4 @@ NEXT_PUBLIC_SITE_URL=https://boudradev.space
 - Twitter Card Validator: https://cards-dev.twitter.com/validator
 - PageSpeed Insights: https://pagespeed.web.dev/
 
+## Next Error customzation

@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import {useParams} from 'next/navigation';
-import {Locale} from 'next-intl';
-import {ChangeEvent, ReactNode, useTransition} from 'react';
-import {usePathname, useRouter} from '@/i18n/navigation';
+import clsx from "clsx";
+import { useParams } from "next/navigation";
+import { Locale } from "next-intl";
+import { ChangeEvent, ReactNode, useTransition } from "react";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { Earth } from "lucide-react";
 
 type Props = {
   children: ReactNode;
@@ -15,7 +16,7 @@ type Props = {
 export default function LocaleSwitcherSelect({
   children,
   defaultValue,
-  label
+  label,
 }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -29,29 +30,36 @@ export default function LocaleSwitcherSelect({
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will
         // always match for the current route, we can skip runtime checks.
-        {pathname, params},
-        {locale: nextLocale}
+        { pathname, params },
+        { locale: nextLocale }
       );
     });
   }
 
+  
   return (
     <label
       className={clsx(
-        'relative text-gray-400',
-        isPending && 'transition-opacity [&:disabled]:opacity-30'
+        "relative text-gray-400",
+        isPending && "transition-opacity [&:disabled]:opacity-30"
       )}
     >
-      <p className="sr-only">{label}</p>
-      <select
-        className="inline-flex appearance-none text-gray-800 text-[15px] bg-transparent outline-none py-3 pl-2 pr-6"
-        defaultValue={defaultValue}
-        disabled={isPending}
-        onChange={onSelectChange}
-      >
-        {children}
-      </select>
-      <span className="pointer-events-none absolute right-3 top-[8px]">⌄</span>
+      <div className="flex items-center">
+        <Earth size={20} className={clsx("text-gray-800 pl-1 absolute", params.locale === "ar" ? "-left-3": "-left-4")}/>
+        <p className="sr-only">{label}</p>
+        <select
+          className="inline-flex appearance-none text-gray-800 text-[15px] bg-transparent outline-none py-3 pl-2 pr-6"
+          defaultValue={defaultValue}
+          disabled={isPending}
+          onChange={onSelectChange}
+        >
+          {children}
+        </select>
+        <span className="pointer-events-none absolute right-3 top-[8px]">
+          ⌄
+        </span>
+
+      </div>
     </label>
   );
 }

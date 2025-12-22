@@ -190,7 +190,7 @@ export default async function Layout({
     alternateName: 'عبدالصمد بودرة',
     jobTitle: isArabic ? 'مطوّر برمجيات' : 'Software Developer',
     description: isArabic
-      ? 'عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام React، Next.js، TypeScript والمزيد.'
+      ? 'عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب والموبايل حديثة وعالية الأداء باستخدام React، Next.js، TypeScript والمزيد.'
       : 'Abdulsamad Boudra - Full Stack Software Developer specializing in building modern, high-performance web applications with React, Next.js, TypeScript, and more.',
     url: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}`,
     sameAs: [
@@ -199,6 +199,7 @@ export default async function Layout({
     ],
     knowsAbout: isArabic ? [
       'تطوير الويب',
+      'التطبيقات الموبايل',
       'React',
       'Next.js',
       'TypeScript',
@@ -242,11 +243,10 @@ export default async function Layout({
         <link rel="alternate" hrefLang="ar" href={`${baseUrl}/ar`} />
         <link rel="alternate" hrefLang="x-default" href={`${baseUrl}`} />
       </head>
-      <body
-      style={{direction: isArabic ? 'rtl' : 'ltr'}} 
+      <body 
       className={clsx(isArabic ? kufi.className :
-        roboto.className, 
-        'flex h-full flex-col  justify-center')}>
+        roboto.className
+        )}>
         <NextIntlClientProvider>
           {children}
           <Analytics />
