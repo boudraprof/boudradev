@@ -45,7 +45,7 @@ export default function LocaleSwitcherSelect({
       )}
     >
       <div className="flex items-center">
-        <Earth size={20} className={clsx("text-gray-800 pl-1 absolute", params.locale === "ar" ? "-left-3": "-left-4")}/>
+        <Earth size={20} className={clsx("text-gray-800 pl-1 absolute", params.locale === "ar" ? "-left-2": "-left-4")}/>
         <p className="sr-only">{label}</p>
         <select
           className="inline-flex appearance-none text-gray-800 text-[15px] bg-transparent outline-none py-3 pl-2 pr-6"
