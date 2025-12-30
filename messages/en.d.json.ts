@@ -50,7 +50,10 @@ declare const messages: {
           "Next.js",
           "Tailwind CSS",
           "Redux",
-          "Vue.js"
+          "Vue.js",
+          "Golang",
+          "express.js",
+          "tanstack"
         ]
       },
       {
@@ -80,7 +83,8 @@ declare const messages: {
         "category": "Mobile Apps",
         "skills": ["React Native", "Expo"]
       }
-    ]
+    ],
+    "learningtitle": "Mastering Golang this time"
   },
   "projects": {
     "title": " Featured Projects",
@@ -199,7 +203,7 @@ declare const messages: {
     "description": "Sorry, the page you are looking for does not exist.",
     "goHomeButton": "Go Back Home"
   },
-    "Manifest": {
+  "Manifest": {
     "name": "next-intl example"
   }
 };

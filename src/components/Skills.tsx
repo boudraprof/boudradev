@@ -68,7 +68,7 @@ export default function Skills() {
       <div
         className=" text-slate-200   pt-12 flex flex-col  items-center"
       >
-        <h1 className="text-slate-400  text-lg z-100">mastering  Golang this time  </h1>
+        <h1 className="text-slate-400  text-lg z-100">{t("skills.learningtitle")}</h1>
         <div className="absolute z-99">
         <Image src="/go-logo.png" width={500} height={500} alt="golang logo" />
         </div>
