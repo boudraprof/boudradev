@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import  { useMessages, useTranslations } from "next-intl";
-
+import { useMessages, useTranslations } from "next-intl";
+import Image from "next/image";
 
 type Category = {
   category: string;
@@ -50,7 +50,10 @@ export default function Skills() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: categoryIndex * 0.1 + skillIndex * 0.05 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: categoryIndex * 0.1 + skillIndex * 0.05,
+                    }}
                     whileHover={{ scale: 1.05 }}
                     className="px-4 py-2 bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg text-sm font-medium text-slate-200 border border-slate-600 hover:border-blue-500/50 transition-all duration-300 cursor-default"
                   >
@@ -60,6 +63,14 @@ export default function Skills() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </div>
+      <div
+        className=" text-slate-200   pt-12 flex flex-col  items-center"
+      >
+        <h1 className="text-slate-400  text-lg z-100">mastering  Golang this time  </h1>
+        <div className="absolute z-99">
+        <Image src="/go-logo.png" width={500} height={500} alt="golang logo" />
         </div>
       </div>
     </section>
