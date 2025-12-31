@@ -88,7 +88,7 @@
         "id": "2",
         "image_url": "/cart.jpg",
         "title": "منصة تجارة إلكترونية",
-        "description": "منصّة تجارة إلكترونية متكاملة مع نظام دفع، إدارة مخزون، ولوحة تحكم إدارية. مبنية باستخدام React وNode.js وPostgreSQL.",
+        "description": "منصّة تجارة إلكترونية متكاملة مع نظام دفع، إدارة مخزون، ولوحة تحكم إدارية. مبنية باستخدام React ،Node.js ،PostgreSQL.",
         "technologies": ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
         "live_url": "",
         "github_url": "",
