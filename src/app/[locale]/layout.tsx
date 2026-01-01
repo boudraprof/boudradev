@@ -99,7 +99,7 @@ export async function generateMetadata(
         "Backend Developer",
         "MongoDB",
         "devops engineer",
-        "PostgreSQL",
+        "PostgreSQL", 
         "Tailwind CSS",
         "Web Development",
         "Software Engineering",
