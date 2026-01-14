@@ -47,12 +47,15 @@
           "Next.js",
           "Tailwind CSS",
           "Redux",
-          "Vue.js"
+          "Vue.js",
+          "tanstack"
         ]
       },
       {
         "category": "الواجهة الخلفية",
-        "skills": ["Node.js", "Express", "PostgreSQL", "MongoDB"]
+          
+        "skills": ["Node.js", "tanstack", "Express", "PostgreSQL", "MongoDB",   "Golang", 
+          "express.js"]
       },
       {
         "category": "عمليات التطوير والأدوات",
