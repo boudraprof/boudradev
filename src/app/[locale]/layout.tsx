@@ -38,7 +38,7 @@ export async function generateMetadata(
     isArabic ? "مطوّر برمجيات" : "Software Developer"
   }`;
   const description = isArabic
-    ? "عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام React، Next.js، go, golang, express, TypeScript والمزيد."
+    ? "عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام  ,abdulsamad boudra, Full stack developer, DevOps, React، Next.js، go, golang, express, TypeScript والمزيد."
     : "Abdulsamad Boudra - Full Stack Software Developer specializing in building modern, high-performance web applications with React, Next.js,go, golang, express, TypeScript, and more.";
 
   const keywords = isArabic
