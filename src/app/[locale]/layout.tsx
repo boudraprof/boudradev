@@ -31,15 +31,17 @@ export async function generateMetadata(
     locale: locale as Locale,
     namespace: "Layout",
   });
-
+    
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://boudradev.space";
   const siteName = "BoudraDev";
   const title = `${t("title")} - ${
     isArabic ? "مطوّر برمجيات" : "Software Developer"
   }`;
+  const englishWords =   "Full stack developer, abdulsamad boudra, Software Developer full-stack, DevOps, React، Next.js، go, golang, express, TypeScript";
+  
   const description = isArabic
-    ? "عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام  , سكربت, مبرمح محترف, Full stack developer, abdulsamad boudra, full-stack, DevOps, React، Next.js، go, golang, express, TypeScript والمزيد."
-    : "Abdulsamad Boudra - Full Stack Software Developer specializing in building modern, high-performance web applications with React, Next.js,go, golang,  express, TypeScript, and more.";
+    ? "عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام أحدث التقنيات ." + englishWords
+    : "Abdulsamad Boudra - Full Stack Software Developer specializing in building modern, high-performance web applications with React, Next.js, go, golang,  express, TypeScript, and more.";
 
   const keywords = isArabic
     ? [
