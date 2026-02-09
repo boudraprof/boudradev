@@ -37,7 +37,7 @@ export async function generateMetadata(
   const title = `${t("title")} - ${
     isArabic ? "مطوّر برمجيات" : "Software Developer"
   }`;
-  const englishWords =   "Full stack developer, abdulsamad boudra, Software Developer full-stack, DevOps, React، Next.js، go, golang, express, TypeScript";
+  const englishWords =   "Full stack developer, abdulsamad boudra, Software Developer full-stack, DevOps, React، Next.js، go, golang, express, TypeScript, abdulsamad programmer, boudra developer, abdulsamad developer";
   
   const description = isArabic
     ? "عبدالصمد بودرة - مطوّر برمجيات متكامل متخصص في بناء تطبيقات ويب حديثة وعالية الأداء باستخدام أحدث التقنيات ." + englishWords
