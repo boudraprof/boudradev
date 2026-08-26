@@ -28,7 +28,7 @@ export interface SendEmailToAdmin {
   message: string
 }
 export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmailOptions) {
-  const fromEmail = process.env.FROM_EMAIL || "contact@boudradev.space";
+  const fromEmail = process.env.FROM_EMAIL;
   const fromName = process.env.FROM_NAME || "BoudraDev";
 
   // Email content based on locale
