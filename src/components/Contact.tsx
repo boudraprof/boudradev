@@ -63,7 +63,7 @@ export default function Contact() {
             className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-lg"
           >
             <Mail className="size-5" />
-            contact@boudradev.space
+            boudradev@gmail.com
           </a>
         </motion.div>
         <Footer />
