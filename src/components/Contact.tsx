@@ -59,7 +59,7 @@ export default function Contact() {
         >
           <p className="text-slate-500 mb-4">{t("directlyEmail")}</p>
           <a
-            href="mailto:contact@boudradev.space"
+            href="mailto:boudradev@gmail.com"
             className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-lg"
           >
             <Mail className="size-5" />
