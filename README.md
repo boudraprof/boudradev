@@ -141,4 +141,6 @@ For a self-hosted Node server, run `npm run build` then `npm run start` behind a
 
 ## 📄 License
 
-This project is private. All rights reserved.
+This project is licensed under the [MIT License](LICENSE) — see the [LICENSE](LICENSE) file for details.
+
+Copyright © 2026 Abdulsamad Boudra.
