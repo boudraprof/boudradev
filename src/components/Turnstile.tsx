@@ -70,7 +70,7 @@ const Turnstile = forwardRef<TurnstileRef, TurnstileProps>(({
           'expired-callback': () => {
             if (onError) onError();
           },
-          theme: theme,
+          theme: theme as "dark" | "auto" | "light" | undefined,
           language: language,
         });
       } else if (!window.turnstile) {

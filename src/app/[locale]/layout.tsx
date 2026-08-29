@@ -203,7 +203,7 @@ export default async function Layout({
   setRequestLocale(locale);
   const isArabic = locale === "ar";
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://boudradev.space";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://boudradev.vercel.app";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Person",
