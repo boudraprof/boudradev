@@ -104,11 +104,9 @@ export async function ContactForm(
   });
 
   if (!welcomeResult.success) {
-    console.error("Failed to send welcome email to user");
-    return {
-      success: false,
-      message: localMessages.contact.form.messages.successWithEmailFail,
-    };
+    // The contact message was already received (admin email succeeded).
+    // Log the welcome email failure but still show success to the user.
+    console.error("Failed to send welcome email to user:", welcomeResult.error);
   }
 
   return {

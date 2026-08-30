@@ -1,19 +1,25 @@
 import nodemailer from 'nodemailer';
 
-// Email transporter configuration for Gmail
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // Use SSL
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS, // Use App Password, not regular password
-  },
-  // Additional options to help with connection issues
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+/**
+ * Creates a fresh SMTP transporter for each call.
+ * A shared/module-level transporter causes the second email to fail in
+ * serverless environments (Vercel) because Gmail closes the connection
+ * after the first send and the stale socket is reused.
+ */
+function createTransporter() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Use SSL
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS, // App Password — not your regular Gmail password
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+}
 
 export interface WelcomeEmailOptions {
   to: string;
@@ -101,6 +107,7 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
 
   const content = emailContent[locale];
 
+  const transporter = createTransporter();
   try {
     const info = await transporter.sendMail({
       from: `"${fromName}" <${fromEmail}>`,
@@ -115,23 +122,28 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
   } catch (error) {
     console.error('Error sending welcome email:', error);
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+  } finally {
+    transporter.close();
   }
 }
 
 export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmin) {
-const adminEmail = process.env.FROM_EMAIL;
+  const adminEmail = process.env.FROM_EMAIL;
+  const transporter = createTransporter();
   try {
-     await transporter.sendMail({
+    await transporter.sendMail({
       from: `boudradev <${adminEmail}>`,
       to: process.env.FROM_EMAIL,
-      subject: `The Message Form Client Name: ${name}, Email: ${email}`,
+      subject: `New Contact Message — ${name} <${email}>`,
       text: message,
     });
 
     return { success: true };
   } catch (error) {
-    console.error('Error sending email to admin failed', error);
-    return { success: false};
+    console.error('Error sending email to admin:', error);
+    return { success: false };
+  } finally {
+    transporter.close();
   }
 }
 
