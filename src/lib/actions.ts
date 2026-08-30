@@ -3,9 +3,7 @@
 import { z } from "zod";
 import { getLocale, getMessages } from "next-intl/server";
 
-import Contact from "../models/Contact";
 import { sendEmailToAdmin, sendWelcomeEmail } from "@/lib/email";
-import dbConnect from "@/lib/mongoose";
 import axios from "axios";
 
 export type State = {
@@ -40,7 +38,7 @@ export async function ContactForm(
     };
   }
 
-     const contact = ContactFormSchema.omit({ date: true });
+  const contact = ContactFormSchema.omit({ date: true });
 
   const validateFields = contact.safeParse({
     name: formData.get("name"),
@@ -86,38 +84,35 @@ export async function ContactForm(
   }
 
   const { name, email, message } = validateFields.data;
-  const date = new Date().toISOString().split("T")[0];
+  const locale = (await getLocale()) as "en" | "ar";
 
-  let mailMessage;
-  try {
-    await sendEmailToAdmin({ email, name, message });
-    const locale = (await getLocale()) as "en" | "ar";
-    mailMessage = await sendWelcomeEmail({
-      to: email,
-      name: name,
-      locale: locale,
-    });
-
-    await dbConnect();
-    await Contact.create({
-      name,
-      email,
-      message,
-      date,
-    });
-  } catch (emailError) {
-    console.error("Error sending welcome email:", emailError);
-    // Don't fail the form submission if email fails
+  // Send admin notification email
+  const adminResult = await sendEmailToAdmin({ email, name, message });
+  if (!adminResult.success) {
+    console.error("Failed to send admin notification email");
     return {
-      success: true,
+      success: false,
       message: localMessages.contact.form.messages.successWithEmailFail,
     };
   }
-  
+
+  // Send welcome email to the user
+  const welcomeResult = await sendWelcomeEmail({
+    to: email,
+    name: name,
+    locale: locale,
+  });
+
+  if (!welcomeResult.success) {
+    console.error("Failed to send welcome email to user");
+    return {
+      success: false,
+      message: localMessages.contact.form.messages.successWithEmailFail,
+    };
+  }
+
   return {
     success: true,
-    message: mailMessage?.success
-      ? localMessages.contact.form.messages.success
-      : localMessages.contact.form.messages.successWithEmailFail,
+    message: localMessages.contact.form.messages.success,
   };
 }
