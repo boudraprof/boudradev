@@ -1,12 +1,12 @@
 # BoudraDev — Personal Portfolio
 
-A modern (English / Arabic) personal portfolio built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **next-intl** for internationalization. It showcases projects, skills, and experience, and includes a contact form backed by MongoDB and email notifications with Cloudflare Turnstile spam protection.
+A modern (English / Arabic) personal portfolio built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **next-intl** for internationalization. It showcases projects, skills, and experience, and includes a contact form backed.
 
 ## ✨ Features
 
 - **Bilingual & RTL-aware** — Full English (`en`) and Arabic (`ar`) support with automatic locale detection via `Accept-Language` and right-to-left layout for Arabic.
 - **Static & SEO optimized** — Prerendered pages, dynamic `sitemap.xml`, `robots.txt`, Open Graph / Twitter cards, JSON-LD structured data, and `hreflang` alternates.
-- **Contact form** — Server Action validated with Zod, persisted to MongoDB, and emailed via Nodemailer (SMTP). Protected by Cloudflare Turnstile.
+- **Contact form** — Server Action validated with Zod, persisted to MongoDB, and emailed via Nodemailer (SMTP).
 - **Modern UI** — Animated hero, timeline experience, skill grid, and project cards built with Framer Motion, GSAP, and `lucide-react` icons.
 - **Analytics** — Vercel Analytics integration.
 - **Production hardening** — Security headers (CSP, HSTS, X-Frame-Options, etc.) configured in `next.config.ts`.
@@ -21,9 +21,7 @@ A modern (English / Arabic) personal portfolio built with **Next.js 16 (App Rout
 | i18n            | next-intl |
 | Animation       | Framer Motion, GSAP, OGL, Three.js |
 | Forms / Validation | React `useActionState`, Zod |
-| Database        | MongoDB via Mongoose |
 | Email           | Nodemailer (SMTP) |
-| Spam Protection | Cloudflare Turnstile |
 | Components       | Radix UI primitives (shadcn-style `ui/` components) |
 | Lint / Type     | ESLint 9 (flat config), TypeScript 5 |
 
@@ -50,15 +48,15 @@ npm install
 
 ### Environment Variables
 
-Copy `.env.example` to `.env.local` and fill in the values:
+Copy `.env.example` to `.env` and fill in the values:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 | Variable | Required | Description |
 | -------- | -------- | ----------- |
-| `MONGODB_URI` | ✅ | MongoDB connection string used by the contact form. |
+
 | `SMTP_HOST` | ✅ | SMTP server host (e.g., `smtp-relay.brevo.com`). |
 | `SMTP_PORT` | ✅ | SMTP port. `465` uses implicit TLS; `587`/`25` use STARTTLS. |
 | `SMTP_USER` | ✅ | SMTP username. |
