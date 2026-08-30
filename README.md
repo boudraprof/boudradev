@@ -41,7 +41,7 @@ A modern (English / Arabic) personal portfolio built with **Next.js 16 (App Rout
 
 ```bash
 # Clone the repository
-git clone <your-repo-url> boudradev
+git clone https://github.com/boudraprof/boudradev boudradev
 cd boudradev
 
 # Install dependencies
@@ -136,8 +136,6 @@ This project is optimized for **Vercel**:
 1. Import the repository into Vercel.
 2. Set the environment variables from `.env.example` in the Vercel project settings.
 3. Deploy — the build command (`next build`) and output are detected automatically.
-
-For a self-hosted Node server, run `npm run build` then `npm run start` behind a reverse proxy (Nginx/Caddy) with TLS.
 
 ## 📄 License
 
