@@ -1,6 +1,6 @@
 # BoudraDev — Personal Portfolio
 
-A modern, bilingual (English / Arabic) personal portfolio built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **next-intl** for internationalization. It showcases projects, skills, and experience, and includes a contact form backed by MongoDB and email notifications with Cloudflare Turnstile spam protection.
+A modern (English / Arabic) personal portfolio built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **next-intl** for internationalization. It showcases projects, skills, and experience, and includes a contact form backed by MongoDB and email notifications with Cloudflare Turnstile spam protection.
 
 ## ✨ Features
 
