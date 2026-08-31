@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer';
-import dns from 'dns';
+import nodemailer, { type TransportOptions } from "nodemailer";
+import dns from "dns";
 
 /**
  * Creates a fresh SMTP transporter for each call.
@@ -8,18 +8,35 @@ import dns from 'dns';
  * after the first send and the stale socket is reused.
  */
 function createTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 465;
-  
+
   // Nodemailer: secure should be true for port 465, false for other ports (like 587, 2525)
   // If SMTP_SECURE is explicitly set, we respect it. Otherwise, we default based on the port.
   let secure = port === 465;
   if (process.env.SMTP_SECURE !== undefined) {
     const secureVal = String(process.env.SMTP_SECURE).toLowerCase().trim();
-    secure = secureVal === 'true';
+    secure = secureVal === "true";
   }
 
-  return nodemailer.createTransport({
+  const transporterOptions: {
+    host: string;
+    port: number;
+    secure: boolean;
+    lookup: (
+      hostname: string,
+      options: dns.LookupOptions,
+      callback: (
+        err: NodeJS.ErrnoException | null,
+        address: string | dns.LookupAddress[],
+        family: number,
+      ) => void,
+    ) => void;
+    auth: {user: string, pass: string};
+     tls: {
+      rejectUnauthorized: boolean,
+    }
+  } = {
     host,
     port,
     secure,
@@ -27,33 +44,47 @@ function createTransporter() {
     lookup: (
       hostname: string,
       options: dns.LookupOptions,
-      callback: (err: NodeJS.ErrnoException | null, address: string | dns.LookupAddress[], family: number) => void,
+      callback: (
+        err: NodeJS.ErrnoException | null,
+        address: string | dns.LookupAddress[],
+        family: number,
+      ) => void,
     ) => {
-      return dns.lookup(hostname, Object.assign({}, options, { family: 4 }), callback);
+      return dns.lookup(
+        hostname,
+        Object.assign({}, options, { family: 4 }),
+        callback,
+      );
     },
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS, // App Password — not your regular Gmail password
+      user: process.env.SMTP_USER as string,
+      pass: process.env.SMTP_PASS as string, // App Password — not your regular Gmail password
     },
     tls: {
       rejectUnauthorized: false,
     },
-  });
+
+  };
+
+  return nodemailer.createTransport(transporterOptions);
 }
 
 export interface WelcomeEmailOptions {
   to: string;
   name: string;
-  locale?: 'en' | 'ar';
+  locale?: "en" | "ar";
 }
-
 
 export interface SendEmailToAdmin {
   email: string;
   name: string;
-  message: string
+  message: string;
 }
-export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmailOptions) {
+export async function sendWelcomeEmail({
+  to,
+  name,
+  locale = "en",
+}: WelcomeEmailOptions) {
   const fromEmail = process.env.FROM_EMAIL;
   const fromName = process.env.FROM_NAME || "BoudraDev";
 
@@ -89,7 +120,7 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
         </body>
         </html>
       `,
-      text: `Hello ${name},\n\nThank you for reaching out! I've received your message and will get back to you as soon as possible.\n\nI appreciate your interest in my work and look forward to connecting with you.\n\nBest regards,\nBoudraDev Team`
+      text: `Hello ${name},\n\nThank you for reaching out! I've received your message and will get back to you as soon as possible.\n\nI appreciate your interest in my work and look forward to connecting with you.\n\nBest regards,\nBoudraDev Team`,
     },
     ar: {
       subject: "شكراً لتواصلك مع BoudraDev!",
@@ -121,8 +152,8 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
         </body>
         </html>
       `,
-      text: `مرحباً ${name}،\n\nشكراً لتواصلك معنا! لقد تلقيت رسالتك وسأعود إليك في أقرب وقت ممكن.\n\nأقدر اهتمامك بعملي وأتطلع للتواصل معك.\n\nمع أطيب التحيات،\nفريق BoudraDev`
-    }
+      text: `مرحباً ${name}،\n\nشكراً لتواصلك معنا! لقد تلقيت رسالتك وسأعود إليك في أقرب وقت ممكن.\n\nأقدر اهتمامك بعملي وأتطلع للتواصل معك.\n\nمع أطيب التحيات،\nفريق BoudraDev`,
+    },
   };
 
   const content = emailContent[locale];
@@ -137,17 +168,24 @@ export async function sendWelcomeEmail({ to, name, locale = 'en' }: WelcomeEmail
       html: content.html,
     });
 
-    console.log('Welcome email sent:', info.messageId);
+    console.log("Welcome email sent:", info.messageId);
     return { success: true, messageId: info.messageId };
   } catch (error) {
-    console.error('Error sending welcome email:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
+    console.error("Error sending welcome email:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    };
   } finally {
     transporter.close();
   }
 }
 
-export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmin) {
+export async function sendEmailToAdmin({
+  email,
+  name,
+  message,
+}: SendEmailToAdmin) {
   const adminEmail = process.env.FROM_EMAIL;
   const transporter = createTransporter();
   try {
@@ -160,10 +198,9 @@ export async function sendEmailToAdmin({ email, name, message }: SendEmailToAdmi
 
     return { success: true };
   } catch (error) {
-    console.error('Error sending email to admin:', error);
+    console.error("Error sending email to admin:", error);
     return { success: false };
   } finally {
     transporter.close();
   }
 }
-
