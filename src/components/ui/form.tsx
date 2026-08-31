@@ -25,21 +25,32 @@ const CreateForm = () => {
   const [sent, setSent] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const turnstileRef = useRef<TurnstileRef>(null);
-  
-  // Reset sent state when form action completes successfully
+
+  const showSuccess = sent || Boolean(state.success);
+
   useEffect(() => {
-    if (state.success) {
+    if (!state.success) return;
+
+    let hideSuccessTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const showSuccessTimer = setTimeout(() => {
       setSent(true);
       setTurnstileToken(null);
-      // Reset Turnstile widget
       if (turnstileRef.current) {
         turnstileRef.current.reset();
       }
-    const clear =  setTimeout(() => {
+
+      hideSuccessTimer = setTimeout(() => {
         setSent(false);
       }, 5000);
-      return () => clearTimeout(clear);
-    }
+    }, 0);
+
+    return () => {
+      clearTimeout(showSuccessTimer);
+      if (hideSuccessTimer) {
+        clearTimeout(hideSuccessTimer);
+      }
+    };
   }, [state.success]);
 
   // Handle form submission with transition
@@ -55,7 +66,7 @@ const CreateForm = () => {
 
   return (
     
-      sent?(
+      showSuccess ? (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }
       }
@@ -124,7 +135,7 @@ const CreateForm = () => {
       </div>
       
       {/* Cloudflare Turnstile */}
-      {/* <div className="flex justify-center h-16">
+      <div className="flex justify-center h-16">
         <Turnstile
           ref={turnstileRef}
           siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
@@ -137,7 +148,7 @@ const CreateForm = () => {
           theme="auto"
           language={locale}
         />
-      </div> */}
+      </div>
       
       {/* Hidden input for Turnstile token */}
       {turnstileToken && (

@@ -1,18 +1,11 @@
-import nodemailer, { type TransportOptions } from "nodemailer";
-import dns from "dns";
+import nodemailer from "nodemailer";
 
-/**
- * Creates a fresh SMTP transporter for each call.
- * A shared/module-level transporter causes the second email to fail in
- * serverless environments (Vercel) because Gmail closes the connection
- * after the first send and the stale socket is reused.
- */
+
+
 function createTransporter() {
   const host = process.env.SMTP_HOST || "smtp.gmail.com";
   const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 465;
 
-  // Nodemailer: secure should be true for port 465, false for other ports (like 587, 2525)
-  // If SMTP_SECURE is explicitly set, we respect it. Otherwise, we default based on the port.
   let secure = port === 465;
   if (process.env.SMTP_SECURE !== undefined) {
     const secureVal = String(process.env.SMTP_SECURE).toLowerCase().trim();
@@ -22,48 +15,19 @@ function createTransporter() {
   const transporterOptions: {
     host: string;
     port: number;
-    secure: boolean;
-    lookup: (
-      hostname: string,
-      options: dns.LookupOptions,
-      callback: (
-        err: NodeJS.ErrnoException | null,
-        address: string | dns.LookupAddress[],
-        family: number,
-      ) => void,
-    ) => void;
+    secure?: boolean;
     auth: {user: string, pass: string};
-     tls: {
-      rejectUnauthorized: boolean,
-    }
   } = {
     host,
     port,
     secure,
-    // Force DNS lookup to use IPv4 only to avoid timeouts on platforms with broken/unconfigured IPv6 routing
-    lookup: (
-      hostname: string,
-      options: dns.LookupOptions,
-      callback: (
-        err: NodeJS.ErrnoException | null,
-        address: string | dns.LookupAddress[],
-        family: number,
-      ) => void,
-    ) => {
-      return dns.lookup(
-        hostname,
-        Object.assign({}, options, { family: 4 }),
-        callback,
-      );
-    },
     auth: {
       user: process.env.SMTP_USER as string,
-      pass: process.env.SMTP_PASS as string, // App Password — not your regular Gmail password
+      pass: process.env.SMTP_PASS as string, 
     },
-    tls: {
-      rejectUnauthorized: false,
-    },
-
+  
+  // proxy: "http://127.0.0.1:10801"
+ 
   };
 
   return nodemailer.createTransport(transporterOptions);
@@ -159,13 +123,14 @@ export async function sendWelcomeEmail({
   const content = emailContent[locale];
 
   const transporter = createTransporter();
+  console.log(to)
   try {
     const info = await transporter.sendMail({
       from: `"${fromName}" <${fromEmail}>`,
-      to: to,
+      to,
       subject: content.subject,
       text: content.text,
-      html: content.html,
+      html: content.html
     });
 
     console.log("Welcome email sent:", info.messageId);
@@ -195,7 +160,6 @@ export async function sendEmailToAdmin({
       subject: `New Contact Message — ${name} <${email}>`,
       text: message,
     });
-
     return { success: true };
   } catch (error) {
     console.error("Error sending email to admin:", error);
