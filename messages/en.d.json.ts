@@ -51,14 +51,14 @@ declare const messages: {
           "Tailwind CSS",
           "Redux",
           "Vue.js",
-          "Golang",
-          "express.js",
           "tanstack"
         ]
       },
       {
         "category": "Backend",
-        "skills": ["Node.js", "Express", "PostgreSQL", "MongoDB"]
+        "skills": ["Node.js", "Express", "PostgreSQL", "MongoDB",  "Golang",
+          "tanstack",
+          "express.js"]
       },
       {
         "category": "DevOps & Tools",

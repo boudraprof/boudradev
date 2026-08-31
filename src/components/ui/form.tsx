@@ -35,9 +35,10 @@ const CreateForm = () => {
       if (turnstileRef.current) {
         turnstileRef.current.reset();
       }
-      setTimeout(() => {
+    const clear =  setTimeout(() => {
         setSent(false);
       }, 5000);
+      return () => clearTimeout(clear);
     }
   }, [state.success]);
 
@@ -61,7 +62,7 @@ const CreateForm = () => {
       animate={{ opacity: 1, scale: 1 }}
       className="text-center py-12"
     >
-      <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-20 h-20 bg-linear-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
         <CheckCircle className="w-10 h-10 text-white" />
       </div>
       <h3 className="text-2xl font-bold mb-3">
@@ -123,7 +124,7 @@ const CreateForm = () => {
       </div>
       
       {/* Cloudflare Turnstile */}
-      <div className="flex justify-center h-16">
+      {/* <div className="flex justify-center h-16">
         <Turnstile
           ref={turnstileRef}
           siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || ''}
@@ -136,7 +137,7 @@ const CreateForm = () => {
           theme="auto"
           language={locale}
         />
-      </div>
+      </div> */}
       
       {/* Hidden input for Turnstile token */}
       {turnstileToken && (
@@ -150,8 +151,8 @@ const CreateForm = () => {
       <Button
         type="submit"
         size="lg"
-        disabled={isPending || !turnstileToken}
-        className="w-full bg-gradient-to-r  from-blue-600  to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-6 disabled:opacity-50 disabled:cursor-not-allowed"
+        // disabled={isPending || !turnstileToken}
+        className="w-full bg-linear-to-r  from-blue-600  to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-6 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isPending ? (
           <>

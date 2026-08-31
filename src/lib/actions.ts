@@ -21,7 +21,7 @@ export async function ContactForm(
   formData: FormData
 ): Promise<State> {
   // Verify reCAPTCHA token
-  const recaptchaToken = formData.get("cf-turnstile-response");
+  // const recaptchaToken = formData.get("cf-turnstile-response");
   const localMessages = await getMessages();
   
   const ContactFormSchema = z.object({
@@ -31,12 +31,12 @@ export async function ContactForm(
     date: z.date().optional(),
   });
   
-  if (!recaptchaToken) {
-    return {
-      errors: {},
-      message: localMessages.contact.form.errors.recaptchaRequired,
-    };
-  }
+  // if (!recaptchaToken) {
+  //   return {
+  //     errors: {},
+  //     message: localMessages.contact.form.errors.recaptchaRequired,
+  //   };
+  // }
 
   const contact = ContactFormSchema.omit({ date: true });
 
@@ -54,34 +54,34 @@ export async function ContactForm(
 
   // Verify token with Cloudflare Turnstile
   const secretKey = process.env.CLOUDFLARE_RECAPTCHA_SECRET_KEY;
-  try {
-    if (secretKey) {
-      const response = await axios.post(
-        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-        new URLSearchParams({
-          secret: secretKey,
-          response: recaptchaToken.toString(),
-        }),
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-      if (!response.data.success) {
-        return {
-          errors: {},
-          message: localMessages.contact.form.errors.recaptchaFailed,
-        };
-      }
-    }
-  } catch (error) {
-    console.error("reCAPTCHA verification error:", error);
-    return {
-      errors: {},
-      message: localMessages.contact.form.errors.recaptchaError,
-    };
-  }
+  // try {
+  //   if (secretKey) {
+  //     const response = await axios.post(
+  //       "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+  //       new URLSearchParams({
+  //         secret: secretKey,
+  //         response: recaptchaToken.toString(),
+  //       }),
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //         },
+  //       }
+  //     );
+  //     if (!response.data.success) {
+  //       return {
+  //         errors: {},
+  //         message: localMessages.contact.form.errors.recaptchaFailed,
+  //       };
+  //     }
+  //   }
+  // } catch (error) {
+  //   console.error("reCAPTCHA verification error:", error);
+  //   return {
+  //     errors: {},
+  //     message: localMessages.contact.form.errors.recaptchaError,
+  //   };
+  // }
 
   const { name, email, message } = validateFields.data;
   const locale = (await getLocale()) as "en" | "ar";

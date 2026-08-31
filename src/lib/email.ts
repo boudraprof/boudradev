@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import dns from 'dns';
 
 /**
  * Creates a fresh SMTP transporter for each call.
@@ -7,10 +8,25 @@ import nodemailer from 'nodemailer';
  * after the first send and the stale socket is reused.
  */
 function createTransporter() {
+  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
+  const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 465;
+  
+  // Nodemailer: secure should be true for port 465, false for other ports (like 587, 2525)
+  // If SMTP_SECURE is explicitly set, we respect it. Otherwise, we default based on the port.
+  let secure = port === 465;
+  if (process.env.SMTP_SECURE !== undefined) {
+    const secureVal = String(process.env.SMTP_SECURE).toLowerCase().trim();
+    secure = secureVal === 'true';
+  }
+
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // Use SSL
+    host,
+    port,
+    secure,
+    // Force DNS lookup to use IPv4 only to avoid timeouts on platforms with broken/unconfigured IPv6 routing
+    lookup: (hostname, options, callback) => {
+      return dns.lookup(hostname, Object.assign({}, options, { family: 4 }), callback);
+    },
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS, // App Password — not your regular Gmail password

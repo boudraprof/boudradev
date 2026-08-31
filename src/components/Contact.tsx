@@ -20,7 +20,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 md:py-32 px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
+      <div className="absolute inset-0 bg-linear-to-b from-slate-950 to-slate-900" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
@@ -30,11 +30,11 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold p-4 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold p-4 bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             {/* Get In Touch */}
             {t("title")}
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto mb-6" />
+          <div className="w-20 h-1 bg-linear-to-r from-blue-500 to-cyan-500 mx-auto mb-6" />
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
             {/* Have a project in mind or want to collaborate? Feel free to reach out! */}
             {t("description")}        
