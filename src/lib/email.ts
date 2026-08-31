@@ -24,7 +24,11 @@ function createTransporter() {
     port,
     secure,
     // Force DNS lookup to use IPv4 only to avoid timeouts on platforms with broken/unconfigured IPv6 routing
-    lookup: (hostname, options, callback) => {
+    lookup: (
+      hostname: string,
+      options: dns.LookupOptions,
+      callback: (err: NodeJS.ErrnoException | null, address: string | dns.LookupAddress[], family: number) => void,
+    ) => {
       return dns.lookup(hostname, Object.assign({}, options, { family: 4 }), callback);
     },
     auth: {
